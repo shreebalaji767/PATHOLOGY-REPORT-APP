@@ -2425,7 +2425,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("appinstalled", () => {
         deferredInstallPrompt = null;
         if (installAppBtn) installAppBtn.hidden = true;
-        if (typeof showToast === "function") showToast("SBH Pathology installed");
+        if (typeof showToast === "function") showToast("BLSSNVJ21 installed");
     });
 
     if ("serviceWorker" in navigator) {
