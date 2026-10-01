@@ -1767,17 +1767,18 @@ document.addEventListener("DOMContentLoaded", () => {
        RESET FORM
     ====================================================== */
 
-    function resetForm() {
+    function resetForm(skipConfirmation = false) {
 
 
-        const confirmed =
-            window.confirm(
-                "Clear the complete pathology report?"
-            );
+        if (!skipConfirmation) {
+            const confirmed =
+                window.confirm(
+                    "Clear the complete pathology report?"
+                );
 
-
-        if (!confirmed) {
-            return;
+            if (!confirmed) {
+                return;
+            }
         }
 
 
@@ -1851,7 +1852,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        resetForm();
+        resetForm(true);
 
     }
 
@@ -2098,15 +2099,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-            navigator.serviceWorker.register("/static/sw.js", { scope: "/" })
+            navigator.serviceWorker.register("/sw.js", { scope: "/" })
                 .then(registration => {
                     registration.update();
+
+                    registration.addEventListener("updatefound", () => {
+                        const newWorker = registration.installing;
+                        if (!newWorker) return;
+
+                        newWorker.addEventListener("statechange", () => {
+                            if (
+                                newWorker.state === "installed" &&
+                                navigator.serviceWorker.controller
+                            ) {
+                                showToast("New version available — reload the app");
+                            }
+                        });
+                    });
                 })
                 .catch(error => {
                     console.warn("PWA service worker registration failed:", error);
                 });
         });
     }
+
+    /* =====================================================
+       ONLINE / OFFLINE STATUS
+    ====================================================== */
+
+    function updateConnectionStatus() {
+        if (navigator.onLine) {
+            showToast("Online — latest app version connected");
+        } else {
+            showToast("Offline — app remains available");
+        }
+    }
+
+    window.addEventListener("online", updateConnectionStatus);
+    window.addEventListener("offline", updateConnectionStatus);
+
 
     /* =====================================================
        KEYBOARD SHORTCUTS
