@@ -11,8 +11,8 @@
     >
 
     <meta name="theme-color" content="#173b4d">
-    <meta name="description" content="Shree Balaji Hospital Pathology Report Creator">
-    <meta name="application-name" content="SBH Pathology">
+    <meta name="description" content="BLSSNVJ21 Pathology Report Creator">
+    <meta name="application-name" content="BLSSNVJ21 Pathology">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
 
     <title>
-        SBH Pathology Report Creator
+        BLSSNVJ21 Pathology Report Creator
     </title>
 
     <link
@@ -86,6 +86,30 @@
                 id="previewBtn"
             >
                 Preview
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-light"
+                id="saveDraftBtn"
+            >
+                Save Draft
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-light"
+                id="saveReportBtn"
+            >
+                Save Report
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-light"
+                id="savedReportsBtn"
+            >
+                Saved Reports
             </button>
 
             <button
@@ -624,8 +648,8 @@
                     LIVE REPORT PREVIEW
                 </span>
 
-                <span class="preview-status">
-                    Temporary • Not saved to database
+                <span class="preview-status" id="storageStatus">
+                    Browser storage only • Auto-save enabled
                 </span>
 
             </div>
@@ -991,7 +1015,39 @@
 
 </div>
 
+<!-- =========================================================
+     SAVED REPORTS
+========================================================= -->
 
+<div
+    class="modal no-print"
+    id="savedReportsModal"
+>
+    <div class="modal-backdrop"></div>
+
+    <div class="modal-content saved-reports-modal">
+        <div class="modal-header">
+            <div>
+                <h2>Saved Reports</h2>
+                <small class="storage-note">Stored only in this browser</small>
+            </div>
+            <button
+                type="button"
+                class="modal-close"
+                id="closeSavedReportsBtn"
+                aria-label="Close saved reports"
+            >×</button>
+        </div>
+
+        <div class="saved-reports-toolbar">
+            <button type="button" class="btn btn-danger-outline" id="clearSavedReportsBtn">
+                Clear Saved Reports
+            </button>
+        </div>
+
+        <div class="modal-body saved-reports-body" id="savedReportsList"></div>
+    </div>
+</div>
 
 <script
     src="{{ url_for('static', filename='js/pathology.js') }}"
