@@ -10,21 +10,47 @@
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
+    <!-- =====================================================
+         SEO + METADATA
+    ====================================================== -->
+
     <meta name="theme-color" content="#173b4d">
-    <meta name="description" content="BLSSNVJ21 Pathology Report Creator">
+    <meta name="description" content="BLSSNVJ21 Pathology Report Creator — browser-based pathology report creation, preview, printing, offline PWA support, and local browser storage.">
+    <meta name="keywords" content="BLSSNVJ21, pathology report creator, pathology report software, pathology laboratory, lab report creator, medical laboratory report, pathology report printing, offline pathology software, Hansi Haryana">
+    <meta name="author" content="BLSSNVJ21">
+    <meta name="publisher" content="BLSSNVJ21">
     <meta name="application-name" content="BLSSNVJ21 Pathology">
+    <meta name="generator" content="BLSSNVJ21 Pathology Report Creator">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- PWA / mobile metadata -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="SBH Pathology">
+    <meta name="apple-mobile-web-app-title" content="BLSSNVJ21 Pathology">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BLSSNVJ21 Pathology Report Creator">
+    <meta property="og:description" content="Create, preview and print professional pathology reports with browser-only storage and offline PWA support.">
+    <meta property="og:site_name" content="BLSSNVJ21">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:image" content="{{ url_for('static', filename='icons/icon.svg', _external=True) }}">
+    <meta property="og:image:alt" content="BLSSNVJ21 Pathology Report Creator logo">
+
+    <!-- X / Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="BLSSNVJ21 Pathology Report Creator">
+    <meta name="twitter:description" content="Browser-based pathology report creation and printing application by BLSSNVJ21.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='icons/icon.svg', _external=True) }}">
 
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
 
-    <title>
-        BLSSNVJ21 Pathology Report Creator
-    </title>
+    <title>BLSSNVJ21 Pathology Report Creator | Pathology Laboratory Software</title>
 
     <link
         rel="stylesheet"
