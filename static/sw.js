@@ -1,4 +1,4 @@
-const CACHE_NAME = "sbh-pathology-v3";
+const CACHE_NAME = "blssnvj21-pathology-v4";
 const APP_SHELL = [
   "/",
   "/static/css/pathology.css",
@@ -30,13 +30,32 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
+  const request = event.request;
+
+  // Always try the network first for HTML so the latest app is used.
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          return response;
+        })
+        .catch(() => caches.match(request).then(cached => cached || caches.match("/")))
+    );
+    return;
+  }
+
+  // Static assets: network first, then cached version when offline.
   event.respondWith(
-    fetch(event.request)
+    fetch(request)
       .then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+        }
         return response;
       })
-      .catch(() => caches.match(event.request).then(cached => cached || caches.match("/")))
+      .catch(() => caches.match(request))
   );
 });
