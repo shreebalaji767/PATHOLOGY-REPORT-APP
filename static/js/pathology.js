@@ -6,7 +6,8 @@
 
    FEATURES:
    - No database
-   - No localStorage
+   - Browser-only storage using IndexedDB
+   - No server-side patient/report storage
    - Multiple report sections
    - Optional main heading
    - Optional sub-heading
@@ -76,6 +77,288 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const modalReportContainer =
         document.getElementById("modalReportContainer");
+
+
+
+    /* =====================================================
+       BROWSER STORAGE ONLY — INDEXEDDB
+       No patient/report data is sent to the server.
+    ====================================================== */
+
+    const STORAGE_DB = "blssnvj21-pathology-storage";
+    const STORAGE_VERSION = 1;
+    const DRAFT_KEY = "current-draft";
+
+    let draftSaveTimer = null;
+
+    function openStorageDB() {
+        return new Promise((resolve, reject) => {
+            if (!("indexedDB" in window)) {
+                reject(new Error("IndexedDB is not supported."));
+                return;
+            }
+
+            const request = indexedDB.open(STORAGE_DB, STORAGE_VERSION);
+
+            request.onupgradeneeded = event => {
+                const db = event.target.result;
+
+                if (!db.objectStoreNames.contains("drafts")) {
+                    db.createObjectStore("drafts", { keyPath: "id" });
+                }
+
+                if (!db.objectStoreNames.contains("reports")) {
+                    const store = db.createObjectStore("reports", {
+                        keyPath: "id",
+                        autoIncrement: true
+                    });
+                    store.createIndex("savedAt", "savedAt");
+                    store.createIndex("patientName", "patientName");
+                }
+            };
+
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    function collectReportData() {
+        const fields = [
+            "patientName","patientId","sampleId","age","gender","mobile",
+            "refDoctor","department","collectionDate","collectionTime",
+            "reportDate","reportTime","specimen","clinicalHistory","method","remarks"
+        ];
+
+        const data = { fields: {}, sections: getSectionsData() };
+
+        fields.forEach(id => {
+            const el = document.getElementById(id);
+            data.fields[id] = el ? el.value : "";
+        });
+
+        return data;
+    }
+
+    function applyReportData(data) {
+        if (!data || !data.fields) return;
+
+        Object.entries(data.fields).forEach(([id, value]) => {
+            const el = document.getElementById(id);
+            if (el) el.value = value || "";
+        });
+
+        sectionsEditor.innerHTML = "";
+
+        if (Array.isArray(data.sections) && data.sections.length) {
+            data.sections.forEach(section => addSection(section));
+        } else {
+            addSection();
+        }
+
+        updateSectionNumbers();
+        generateReport();
+    }
+
+    async function saveDraft(showMessage = true) {
+        try {
+            const db = await openStorageDB();
+            const tx = db.transaction("drafts", "readwrite");
+            tx.objectStore("drafts").put({
+                id: DRAFT_KEY,
+                updatedAt: Date.now(),
+                data: collectReportData()
+            });
+
+            await new Promise((resolve, reject) => {
+                tx.oncomplete = resolve;
+                tx.onerror = () => reject(tx.error);
+                tx.onabort = () => reject(tx.error);
+            });
+
+            updateStorageStatus("Draft saved locally");
+            if (showMessage) showToast("Draft saved in this browser");
+        } catch (error) {
+            console.warn("Browser draft save failed:", error);
+            updateStorageStatus("Browser storage unavailable");
+        }
+    }
+
+    async function loadDraft() {
+        try {
+            const db = await openStorageDB();
+
+            const data = await new Promise((resolve, reject) => {
+                const tx = db.transaction("drafts", "readonly");
+                const request = tx.objectStore("drafts").get(DRAFT_KEY);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+
+            if (data?.data) {
+                applyReportData(data.data);
+                updateStorageStatus("Draft restored from browser");
+                showToast("Previous draft restored");
+                return true;
+            }
+        } catch (error) {
+            console.warn("Browser draft restore failed:", error);
+        }
+
+        return false;
+    }
+
+    function scheduleDraftSave() {
+        clearTimeout(draftSaveTimer);
+        updateStorageStatus("Unsaved changes…");
+        draftSaveTimer = setTimeout(() => saveDraft(false), 700);
+    }
+
+    function updateStorageStatus(message) {
+        const status = document.getElementById("storageStatus");
+        if (status) status.textContent = "Browser storage only • " + message;
+    }
+
+    async function saveReportToBrowser() {
+        const patientName = getValue("patientName");
+
+        if (!patientName) {
+            alert("Please enter Patient Name before saving the report.");
+            document.getElementById("patientName")?.focus();
+            return;
+        }
+
+        try {
+            const db = await openStorageDB();
+            const data = collectReportData();
+
+            const tx = db.transaction("reports", "readwrite");
+            tx.objectStore("reports").add({
+                patientName,
+                sampleId: getValue("sampleId"),
+                savedAt: Date.now(),
+                data
+            });
+
+            await new Promise((resolve, reject) => {
+                tx.oncomplete = resolve;
+                tx.onerror = () => reject(tx.error);
+                tx.onabort = () => reject(tx.error);
+            });
+
+            await renderSavedReports();
+            showToast("Report saved locally");
+        } catch (error) {
+            console.error("Report save failed:", error);
+            alert("Could not save the report in this browser.");
+        }
+    }
+
+    async function renderSavedReports() {
+        const list = document.getElementById("savedReportsList");
+        if (!list) return;
+
+        try {
+            const db = await openStorageDB();
+            const reports = await new Promise((resolve, reject) => {
+                const tx = db.transaction("reports", "readonly");
+                const request = tx.objectStore("reports").getAll();
+                request.onsuccess = () => resolve(request.result.reverse());
+                request.onerror = () => reject(request.error);
+            });
+
+            if (!reports.length) {
+                list.innerHTML = '<div class="empty-storage">No saved reports in this browser.</div>';
+                return;
+            }
+
+            list.innerHTML = reports.map(report => {
+                const date = new Date(report.savedAt).toLocaleString("en-IN");
+                return `
+                    <div class="saved-report-item">
+                        <div>
+                            <strong>${escapeHTML(report.patientName || "Unnamed Patient")}</strong>
+                            <span>${escapeHTML(report.sampleId || "No Lab No.")}</span>
+                            <small>${escapeHTML(date)}</small>
+                        </div>
+                        <div class="saved-report-actions">
+                            <button type="button" class="btn btn-light load-saved-report" data-id="${report.id}">Load</button>
+                            <button type="button" class="btn btn-danger-outline delete-saved-report" data-id="${report.id}">Delete</button>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+
+            list.querySelectorAll(".load-saved-report").forEach(button => {
+                button.addEventListener("click", async () => {
+                    const report = await getSavedReport(Number(button.dataset.id));
+                    if (report?.data) {
+                        applyReportData(report.data);
+                        closeSavedReports();
+                        showToast("Saved report loaded");
+                    }
+                });
+            });
+
+            list.querySelectorAll(".delete-saved-report").forEach(button => {
+                button.addEventListener("click", async () => {
+                    if (!confirm("Delete this saved report from this browser?")) return;
+                    await deleteSavedReport(Number(button.dataset.id));
+                    renderSavedReports();
+                });
+            });
+        } catch (error) {
+            list.innerHTML = '<div class="empty-storage">Browser storage is unavailable.</div>';
+        }
+    }
+
+    async function getSavedReport(id) {
+        const db = await openStorageDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction("reports", "readonly");
+            const request = tx.objectStore("reports").get(id);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    async function deleteSavedReport(id) {
+        const db = await openStorageDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction("reports", "readwrite");
+            tx.objectStore("reports").delete(id);
+            tx.oncomplete = resolve;
+            tx.onerror = () => reject(tx.error);
+        });
+    }
+
+    async function clearSavedReports() {
+        if (!confirm("Delete ALL saved reports from this browser?")) return;
+
+        try {
+            const db = await openStorageDB();
+            const tx = db.transaction("reports", "readwrite");
+            tx.objectStore("reports").clear();
+
+            await new Promise((resolve, reject) => {
+                tx.oncomplete = resolve;
+                tx.onerror = () => reject(tx.error);
+            });
+
+            renderSavedReports();
+            showToast("All saved reports deleted");
+        } catch (error) {
+            console.warn("Could not clear saved reports:", error);
+        }
+    }
+
+    function closeSavedReports() {
+        document.getElementById("savedReportsModal")?.classList.remove("active");
+    }
+
+    function openSavedReports() {
+        document.getElementById("savedReportsModal")?.classList.add("active");
+        renderSavedReports();
+    }
 
 
     /* =====================================================
@@ -1811,9 +2094,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const dateString =
-            today
-                .toISOString()
-                .split("T")[0];
+            today.getFullYear() +
+            "-" +
+            String(today.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(today.getDate()).padStart(2, "0");
 
 
         document.getElementById(
@@ -1830,7 +2115,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         generateReport();
-
+        openStorageDB().then(db => {
+            const tx = db.transaction("drafts", "readwrite");
+            tx.objectStore("drafts").delete(DRAFT_KEY);
+        }).catch(() => {});
+        updateStorageStatus("New report");
     }
 
 
@@ -1931,6 +2220,36 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =====================================================
        EVENT LISTENERS
     ====================================================== */
+
+    document.getElementById("saveDraftBtn")?.addEventListener(
+        "click",
+        () => saveDraft(true)
+    );
+
+    document.getElementById("saveReportBtn")?.addEventListener(
+        "click",
+        saveReportToBrowser
+    );
+
+    document.getElementById("savedReportsBtn")?.addEventListener(
+        "click",
+        openSavedReports
+    );
+
+    document.getElementById("closeSavedReportsBtn")?.addEventListener(
+        "click",
+        closeSavedReports
+    );
+
+    document.querySelector("#savedReportsModal .modal-backdrop")?.addEventListener(
+        "click",
+        closeSavedReports
+    );
+
+    document.getElementById("clearSavedReportsBtn")?.addEventListener(
+        "click",
+        clearSavedReports
+    );
 
     addSectionBtn.addEventListener(
         "click",
@@ -2066,6 +2385,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    document.addEventListener("input", event => {
+        if (event.target.matches("input, textarea, select")) {
+            scheduleDraftSave();
+        }
+    });
+
+    document.addEventListener("change", event => {
+        if (event.target.matches("input, textarea, select")) {
+            scheduleDraftSave();
+        }
+    });
+
     /* =====================================================
        PWA / OFFLINE SUPPORT
     ====================================================== */
@@ -2183,7 +2514,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addSection();
 
-
     generateReport();
 
+    // Restore the browser-only draft after the editor has been initialized.
+    loadDraft();
 });
