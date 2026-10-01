@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, Response
 
 app = Flask(__name__)
 
@@ -6,6 +6,37 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+
+
+@app.route("/robots.txt")
+def robots():
+    base_url = request_base_url()
+    body = (
+        "User-agent: *\\n"
+        "Allow: /\\n"
+        "Disallow: /static/\\n"
+        f"Sitemap: {base_url}/sitemap.xml\\n"
+    )
+    return Response(body, mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    base_url = request_base_url()
+    body = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{base_url}/</loc>
+  </url>
+</urlset>"""
+    return Response(body, mimetype="application/xml")
+
+
+def request_base_url():
+    from flask import request
+    return request.url_root.rstrip("/")
 
 
 @app.route("/manifest.webmanifest")
