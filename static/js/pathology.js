@@ -232,13 +232,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 </div>
 
-                <button
-                    type="button"
-                    class="remove-section-btn"
-                    title="Remove section"
-                >
-                    ×
-                </button>
+                <div>
+                    <button
+                        type="button"
+                        class="duplicate-section-btn"
+                        title="Duplicate section"
+                        aria-label="Duplicate section"
+                    >
+                        ⧉
+                    </button>
+
+                    <button
+                        type="button"
+                        class="remove-section-btn"
+                        title="Remove section"
+                    >
+                        ×
+                    </button>
+                </div>
 
             </div>
 
@@ -585,13 +596,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <td>
 
-                <button
-                    type="button"
-                    class="remove-investigation-btn"
-                    title="Remove test"
-                >
-                    ×
-                </button>
+                <div class="row-action-group">
+                    <button type="button" class="row-move-btn move-up-btn" title="Move test up">↑</button>
+                    <button type="button" class="row-move-btn move-down-btn" title="Move test down">↓</button>
+                    <button type="button" class="remove-investigation-btn" title="Remove test">×</button>
+                </div>
 
             </td>
 
@@ -1622,6 +1631,122 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
+    /* =====================================================
+       QUICK TEMPLATE LIBRARY
+    ====================================================== */
+
+    function loadQuickTemplate(type) {
+
+        const templates = {
+
+            lft: {
+                heading: "BIOCHEMISTRY",
+                subheading: "LIVER FUNCTION TEST",
+                results: [
+                    {test:"Total Bilirubin",unit:"mg/dL",range:"0.2–1.2"},
+                    {test:"Direct Bilirubin",unit:"mg/dL",range:"0.0–0.3"},
+                    {test:"Indirect Bilirubin",unit:"mg/dL",range:"0.2–0.9"},
+                    {test:"AST (SGOT)",unit:"U/L",range:"5–40"},
+                    {test:"ALT (SGPT)",unit:"U/L",range:"7–56"},
+                    {test:"Alkaline Phosphatase",unit:"U/L",range:"44–147"},
+                    {test:"Total Protein",unit:"g/dL",range:"6.0–8.3"},
+                    {test:"Albumin",unit:"g/dL",range:"3.5–5.0"},
+                    {test:"Globulin",unit:"g/dL",range:"2.0–3.5"}
+                ]
+            },
+
+            kft: {
+                heading: "BIOCHEMISTRY",
+                subheading: "KIDNEY FUNCTION TEST",
+                results: [
+                    {test:"Blood Urea",unit:"mg/dL",range:"15–45"},
+                    {test:"Serum Creatinine",unit:"mg/dL",range:"0.6–1.3"},
+                    {test:"Uric Acid",unit:"mg/dL",range:"3.5–7.2"},
+                    {test:"Sodium",unit:"mmol/L",range:"135–145"},
+                    {test:"Potassium",unit:"mmol/L",range:"3.5–5.1"},
+                    {test:"Chloride",unit:"mmol/L",range:"98–106"}
+                ]
+            },
+
+            lipid: {
+                heading: "BIOCHEMISTRY",
+                subheading: "LIPID PROFILE",
+                results: [
+                    {test:"Total Cholesterol",unit:"mg/dL",range:"Desirable: <200"},
+                    {test:"Triglycerides",unit:"mg/dL",range:"Normal: <150"},
+                    {test:"HDL Cholesterol",unit:"mg/dL",range:">40"},
+                    {test:"LDL Cholesterol",unit:"mg/dL",range:"Optimal: <100"},
+                    {test:"VLDL Cholesterol",unit:"mg/dL",range:"5–40"},
+                    {test:"TC / HDL Ratio",unit:"Ratio",range:"<5.0"}
+                ]
+            },
+
+            thyroid: {
+                heading: "ENDOCRINOLOGY",
+                subheading: "THYROID PROFILE",
+                results: [
+                    {test:"T3",unit:"ng/mL",range:"0.8–2.0"},
+                    {test:"T4",unit:"µg/dL",range:"5.0–12.0"},
+                    {test:"TSH",unit:"µIU/mL",range:"0.4–4.0"}
+                ]
+            },
+
+            urine: {
+                heading: "CLINICAL PATHOLOGY",
+                subheading: "URINE ROUTINE / MICROSCOPY",
+                results: [
+                    {test:"Colour",unit:"",range:"Pale yellow"},
+                    {test:"Appearance",unit:"",range:"Clear"},
+                    {test:"Specific Gravity",unit:"",range:"1.005–1.030"},
+                    {test:"pH",unit:"",range:"4.5–8.0"},
+                    {test:"Protein",unit:"",range:"Negative"},
+                    {test:"Glucose",unit:"",range:"Negative"},
+                    {test:"Ketone",unit:"",range:"Negative"},
+                    {test:"Bilirubin",unit:"",range:"Negative"},
+                    {test:"Urobilinogen",unit:"",range:"Normal"},
+                    {test:"RBC",unit:"/HPF",range:"0–2"},
+                    {test:"Pus Cells",unit:"/HPF",range:"0–5"},
+                    {test:"Epithelial Cells",unit:"/HPF",range:"Few"},
+                    {test:"Casts",unit:"/LPF",range:"Nil"},
+                    {test:"Crystals",unit:"",range:"Nil"},
+                    {test:"Bacteria",unit:"",range:"Nil"}
+                ]
+            }
+        };
+
+        if (type === "cbc") {
+            loadCBCTemplate();
+            return;
+        }
+
+        const template = templates[type];
+        if (!template) return;
+
+        sectionsEditor.innerHTML = "";
+        addSection(template);
+        generateReport();
+        showToast("Template loaded");
+    }
+
+
+    function showToast(message) {
+        let toast = document.getElementById("appToast");
+        if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "appToast";
+            toast.className = "app-toast";
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(window.__pathologyToastTimer);
+        window.__pathologyToastTimer = setTimeout(() => {
+            toast.classList.remove("show");
+        }, 1800);
+    }
+
+
     /* =====================================================
        CLEAR SECTIONS
     ====================================================== */
@@ -1737,8 +1862,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function printReport() {
 
-        generateReport();
+        const patientName = getValue("patientName");
 
+        if (!patientName) {
+            alert("Please enter Patient Name before printing the report.");
+            document.getElementById("patientName")?.focus();
+            return;
+        }
+
+        generateReport();
         window.print();
 
     }
@@ -1813,8 +1945,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cbcTemplateBtn.addEventListener(
         "click",
-        loadCBCTemplate
+        () => loadQuickTemplate("cbc")
     );
+
+    const quickTemplateSelect = document.getElementById("quickTemplateSelect");
+
+    if (quickTemplateSelect) {
+        quickTemplateSelect.addEventListener("change", () => {
+            const type = quickTemplateSelect.value;
+            if (type) {
+                loadQuickTemplate(type);
+                quickTemplateSelect.value = "";
+            }
+        });
+    }
 
 
     clearSectionsBtn.addEventListener(
@@ -1920,17 +2064,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       KEYBOARD SHORTCUTS
+    ====================================================== */
+
+    document.addEventListener("keydown", event => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "p") {
+            event.preventDefault();
+            printReport();
+        }
+
+        if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+            event.preventDefault();
+            generateReport();
+            showToast("Report refreshed");
+        }
+
+        if (event.key === "Escape" && previewModal.classList.contains("active")) {
+            closePreview();
+        }
+    });
+
+
+    /* =====================================================
        INITIALIZATION
     ====================================================== */
 
-    const today =
-        new Date();
-
+    const today = new Date();
 
     const dateString =
-        today
-            .toISOString()
-            .split("T")[0];
+        today.getFullYear() +
+        "-" +
+        String(today.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(today.getDate()).padStart(2, "0");
 
 
     document.getElementById(
