@@ -2063,6 +2063,51 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
+
+
+    /* =====================================================
+       PWA / OFFLINE SUPPORT
+    ====================================================== */
+
+    let deferredInstallPrompt = null;
+    const installAppBtn = document.getElementById("installAppBtn");
+
+    window.addEventListener("beforeinstallprompt", event => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        if (installAppBtn) {
+            installAppBtn.hidden = false;
+        }
+    });
+
+    if (installAppBtn) {
+        installAppBtn.addEventListener("click", async () => {
+            if (!deferredInstallPrompt) return;
+            deferredInstallPrompt.prompt();
+            await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+            installAppBtn.hidden = true;
+        });
+    }
+
+    window.addEventListener("appinstalled", () => {
+        deferredInstallPrompt = null;
+        if (installAppBtn) installAppBtn.hidden = true;
+        if (typeof showToast === "function") showToast("SBH Pathology installed");
+    });
+
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("/static/sw.js", { scope: "/" })
+                .then(registration => {
+                    registration.update();
+                })
+                .catch(error => {
+                    console.warn("PWA service worker registration failed:", error);
+                });
+        });
+    }
+
     /* =====================================================
        KEYBOARD SHORTCUTS
     ====================================================== */
