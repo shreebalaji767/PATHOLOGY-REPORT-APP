@@ -1,7 +1,7 @@
 {
-  "name": "Shree Balaji Hospital - Pathology Report Creator",
-  "short_name": "SBH Pathology",
-  "description": "Professional pathology report creation and A4 printing application for Shree Balaji Hospital.",
+  "name": "BLSSNVJ21 Pathology Report Creator",
+  "short_name": "BLSSNVJ21",
+  "description": "Professional pathology report creation and A4 printing application.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
