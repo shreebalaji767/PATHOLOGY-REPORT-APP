@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, Response
+from flask import Flask, render_template, send_from_directory, Response, request
 
 app = Flask(__name__)
 
