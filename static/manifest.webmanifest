@@ -1,0 +1,21 @@
+{
+  "name": "Shree Balaji Hospital - Pathology Report Creator",
+  "short_name": "SBH Pathology",
+  "description": "Professional pathology report creation and A4 printing application for Shree Balaji Hospital.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f6f8",
+  "theme_color": "#173b4d",
+  "lang": "en-IN",
+  "categories": ["medical", "productivity", "business"],
+  "icons": [
+    {
+      "src": "/static/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
