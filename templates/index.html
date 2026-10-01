@@ -46,6 +46,44 @@
     <meta name="twitter:description" content="Browser-based pathology report creation and printing application by BLSSNVJ21.">
     <meta name="twitter:image" content="{{ url_for('static', filename='icons/icon.svg', _external=True) }}">
 
+    <link rel="canonical" href="{{ request.url_root }}">
+
+    <!-- Search engine / structured data -->
+    <meta name="category" content="Medical Laboratory Software">
+    <meta name="coverage" content="India">
+    <meta name="geo.region" content="IN-HR">
+    <meta name="geo.placename" content="Hansi, Haryana, India">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "BLSSNVJ21 Pathology Report Creator",
+        "applicationCategory": "MedicalApplication",
+        "applicationSubCategory": "Pathology Laboratory Software",
+        "operatingSystem": "Web Browser",
+        "description": "BLSSNVJ21 browser-based pathology report creation, preview and printing application with offline PWA support and browser-only storage.",
+        "brand": {
+            "@type": "Brand",
+            "name": "BLSSNVJ21"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "BLSSNVJ21",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Hansi",
+                "addressRegion": "Haryana",
+                "addressCountry": "IN"
+            }
+        },
+        "inLanguage": "en-IN",
+        "isAccessibleForFree": true
+    }
+    </script>
+
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
