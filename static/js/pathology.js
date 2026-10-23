@@ -1751,6 +1751,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     {test:"Crystals",unit:"",range:"Nil"},
                     {test:"Bacteria",unit:"",range:"Nil"}
                 ]
+            },
+
+            fpg: {
+                heading: "BIOCHEMISTRY",
+                subheading: "FASTING PLASMA GLUCOSE",
+                results: [
+                    {
+                        test: "Fasting Plasma Glucose",
+                        value: "81.9",
+                        unit: "mg/dL",
+                        range: "70–99: Normal; 100–125: Prediabetes; ≥126: Diabetes*"
+                    }
+                ]
             }
         };
 
@@ -1764,8 +1777,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         sectionsEditor.innerHTML = "";
         addSection(template);
+
+        if (type === "fpg") {
+            const specimen = document.getElementById("specimen");
+            const method = document.getElementById("method");
+            if (specimen) specimen.value = "Plasma";
+            if (method) method.value = "Hexokinase";
+        }
+
         generateReport();
-        showToast("Template loaded");
+        showToast(type === "fpg" ? "Fasting Plasma Glucose template loaded" : "Template loaded");
     }
 
 
