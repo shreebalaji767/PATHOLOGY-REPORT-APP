@@ -1598,7 +1598,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
 
                             // Add the Vitamin B12 interpretation guide directly below this test only.
-                            if (/vitamin\\s*b\\s*12|cyanocobalamin/i.test(String(item.test || ""))) {
+                            if (/vitamin\s*b\s*12|cyanocobalamin/i.test(String(item.test || ""))) {
                                 const guideRow = document.createElement("tr");
                                 guideRow.className = "b12-interpretation-row";
                                 const guideColspan = showFlagColumn ? 6 : 5;
