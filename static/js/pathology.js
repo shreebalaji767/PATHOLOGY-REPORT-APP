@@ -2275,6 +2275,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       VITAMIN D DEFAULT REMARKS
+    ====================================================== */
+
+    const vitaminDInterpretationRemarks = `### **INTERPRETATION**
+
+| **LEVEL**                            | **Reference range in ng/mL** | **Comments**                                                                                                                    |
+| ------------------------------------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Severe deficiency**                | < 10                         | Could be associated with osteomalacia or rickets                                                                                |
+| **Mild to moderate deficiency**      | 10–19                        | May be associated with increased risk of osteoporosis or secondary hyperparathyroidism                                          |
+| **Optimum levels**                   | 20–50                        | Optimum levels in the healthy population; patients with bone disease may benefit from higher levels within this range           |
+| **Increased risk of hypercalciuria** | 51–80                        | Sustained levels 25OH–VitD along with prolonged calcium supplementation may lead to hypercalciuria and decreased renal function |
+| **Toxicity possible**                | > 80                         | High risk for toxic effects                                                                                                     |
+
+svg
+
+svg
+
+**Note:**
+
+- The assay measures both D2 (Ergocalciferol) and D3 (Cholecalciferol) metabolites of vitamin D.
+- 25 (OH) D is influenced by sunlight, latitude, skin pigmentation, sunscreen use and hepatic function.
+- Optimal calcium absorption requires vitamin D 25 (OH) levels exceeding 50 ng/mL.
+- It shows seasonal variation, with values being 40–50% lower in winter than in summer.
+- Levels vary with age and are increased in pregnancy.
+
+**Decreased Levels**
+
+- Inadequate exposure to sunlight
+- Dietary deficiency
+- Vitamin D malabsorption
+- Severe Hepatocellular disease
+- Drugs like Anticonvulsants
+- Nephrotic syndrome
+
+**Increased levels**
+
+- Vitamin D intoxication
+
+This is a **clinical interpretation chart** for **vitamin D (25OH–VitD)** levels, detailing deficiency, optimal ranges, and toxicity thresholds, along with influencing factors and associated conditions.
+
+IN REMARKS`;
+
+    document.addEventListener("change", event => {
+        if (!event.target.matches(".test-input")) return;
+        if (!/vitamin\\s*d/i.test(event.target.value || "")) return;
+
+        const remarks = document.getElementById("remarks");
+        if (remarks && !remarks.value.trim()) {
+            remarks.value = vitaminDInterpretationRemarks;
+            generateReport();
+            scheduleDraftSave();
+        }
+    });
+
+    /* =====================================================
        GENERAL FORM INPUT EVENTS
     ====================================================== */
 
