@@ -1799,7 +1799,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const remarks = document.getElementById("remarks");
             if (specimen) specimen.value = "Serum";
             if (method) method.value = "Arsenazo";
-            if (remarks) remarks.value = "Calcium is useful to help diagnose and monitor many types of medical conditions, including conditions that affect the bones, kidneys, digestive system, thyroid, and parathyroid glands. Increased calcium levels may be associated with osteoporosis, kidney stones, renal failure, dementia, and abnormal heart rhythm.";
+            if (remarks) remarks.value = "Calcium is useful\tto\thelp\tdiagnose\tand\tmonitor\tmany types\tof\tmedical\tconditions, including conditions\nthat affect your bones, kidneys, digestive system, thyroid, and parathyroid glands.\nIncreased levels of calcium may cause Osteopor0esis, kidney\tstones, renal\tfailure, dementia, abnormal heart rhythm.";
         }
 
         generateReport();
