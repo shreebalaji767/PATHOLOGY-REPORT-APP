@@ -1700,6 +1700,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadQuickTemplate(type) {
 
+        // Combine multiple selected templates while preserving each section and its event listeners.
+        if (Array.isArray(type)) {
+            const selectedTypes = [...new Set(type)].filter(Boolean);
+            if (!selectedTypes.length) {
+                showToast("Select at least one template");
+                return;
+            }
+
+            const combinedSections = [];
+            selectedTypes.forEach(selectedType => {
+                loadQuickTemplate(selectedType);
+                while (sectionsEditor.firstElementChild) {
+                    combinedSections.push(sectionsEditor.firstElementChild);
+                }
+            });
+
+            sectionsEditor.innerHTML = "";
+            combinedSections.forEach(section => sectionsEditor.appendChild(section));
+            updateSectionNumbers();
+            generateReport();
+            showToast(selectedTypes.length + " templates loaded");
+            return;
+        }
+
         const templates = {
 
             lft: {
@@ -2088,14 +2112,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const quickTemplateSelect = document.getElementById("quickTemplateSelect");
+    const loadSelectedTemplatesBtn = document.getElementById("loadSelectedTemplatesBtn");
 
-    if (quickTemplateSelect) {
-        quickTemplateSelect.addEventListener("change", () => {
-            const type = quickTemplateSelect.value;
-            if (type) {
-                loadQuickTemplate(type);
-                // Keep the chosen template visible in the dropdown after loading.
-            }
+    if (quickTemplateSelect && loadSelectedTemplatesBtn) {
+        loadSelectedTemplatesBtn.addEventListener("click", () => {
+            const selectedTypes = Array.from(quickTemplateSelect.selectedOptions)
+                .map(option => option.value)
+                .filter(Boolean);
+            loadQuickTemplate(selectedTypes);
         });
     }
 
