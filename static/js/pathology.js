@@ -616,11 +616,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             </th>
 
                             <th>
-                                UNIT
+                                VALUE
                             </th>
 
                             <th>
-                                VALUE
+                                UNIT
                             </th>
 
                             <th>
@@ -842,9 +842,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <input
                     type="text"
-                    class="unit-input"
-                    placeholder="Unit"
-                    value="${escapeHTML(data.unit || "")}"
+                    class="value-input"
+                    placeholder="Value"
+                    value="${escapeHTML(data.value || "")}"
                     autocomplete="off"
                 >
 
@@ -855,9 +855,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <input
                     type="text"
-                    class="value-input"
-                    placeholder="Value"
-                    value="${escapeHTML(data.value || "")}"
+                    class="unit-input"
+                    placeholder="Unit"
+                    value="${escapeHTML(data.unit || "")}"
                     autocomplete="off"
                 >
 
@@ -1459,12 +1459,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                 ${showFlagColumn ? '<th class="report-flag">FLAG</th>' : ""}
 
-                                <th class="report-unit">
-                                    UNIT
-                                </th>
-
                                 <th class="report-result">
                                     VALUE
+                                </th>
+
+                                <th class="report-unit">
+                                    UNIT
                                 </th>
 
                                 <th>
@@ -1555,12 +1555,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                 ${showFlagColumn ? `<td class="${flagClass}">${escapeHTML(item.flag)}</td>` : ""}
 
-                                <td>
-                                    ${escapeHTML(item.unit)}
-                                </td>
-
                                 <td class="result-value">
                                     ${escapeHTML(item.value)}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(item.unit)}
                                 </td>
 
                                 <td>
