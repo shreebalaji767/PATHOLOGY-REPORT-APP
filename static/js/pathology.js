@@ -87,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const DRAFT_KEY = "current-draft";
 
     let draftSaveTimer = null;
-    let remarkImages = [];
 
     function openStorageDB() {
         return new Promise((resolve, reject) => {
@@ -127,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "reportDate","reportTime","specimen","clinicalHistory","method","remarks"
         ];
 
-        const data = { fields: {}, sections: getSectionsData(), remarkImages };
+        const data = { fields: {}, sections: getSectionsData() };
 
         fields.forEach(id => {
             const el = document.getElementById(id);
@@ -144,9 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const el = document.getElementById(id);
             if (el) el.value = value || "";
         });
-
-        remarkImages = Array.isArray(data.remarkImages) ? data.remarkImages : [];
-        renderRemarkImageThumbnails();
 
         sectionsEditor.innerHTML = "";
 
@@ -1691,15 +1687,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        const remarksImagesPreview = document.getElementById("previewRemarksImages");
-        if (remarksImagesPreview) {
-            remarksImagesPreview.innerHTML = remarkImages.map((image, index) =>
-                `<figure class="remarks-image-item"><img src="${image.dataUrl}" alt="${escapeHTML(image.name || "Remarks image " + (index + 1))}"><figcaption>${escapeHTML(image.name || "Image " + (index + 1))}</figcaption></figure>`
-            ).join("");
-            remarksImagesPreview.style.display = remarkImages.length ? "" : "none";
-        }
-
-        if (remarks || remarkImages.length) {
+        if (remarks) {
 
             remarksBox.style.display =
                 "";
@@ -2366,106 +2354,6 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
 
     // Vitamin D interpretation is loaded when the Vitamin D template is selected.
 
-
-    /* =====================================================
-       REMARKS IMAGE UPLOAD
-    ====================================================== */
-    const remarksImagesInput = document.getElementById("remarksImages");
-
-    function renderRemarkImageThumbnails() {
-        const container = document.getElementById("remarksImageUploadsPreview");
-        if (!container) return;
-        container.innerHTML = remarkImages.map((image, index) => `
-            <div class="remarks-image-thumb">
-                <img src="${image.dataUrl}" alt="${escapeHTML(image.name || "Uploaded image")}">
-                <span>${escapeHTML(image.name || "Image")}</span>
-                <button type="button" class="remove-remarks-image" data-image-index="${index}" aria-label="Remove image">×</button>
-            </div>
-        `).join("");
-        container.querySelectorAll(".remove-remarks-image").forEach(button => {
-            button.addEventListener("click", () => {
-                remarkImages.splice(Number(button.dataset.imageIndex), 1);
-                renderRemarkImageThumbnails();
-                generateReport();
-                scheduleDraftSave();
-            });
-        });
-    }
-
-    async function addRemarkImageFiles(files) {
-        // Accept files regardless of their reported MIME type, then verify that
-        // the browser can actually decode them as images.
-        const candidates = Array.from(files || []).filter(file => file && typeof file.size === "number");
-        let added = 0;
-
-        for (const file of candidates) {
-            if (file.size > 8 * 1024 * 1024) {
-                alert(`"${file.name || "Pasted image"}" is larger than 8 MB and was skipped.`);
-                continue;
-            }
-
-            const dataUrl = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = () => reject(reader.error);
-                reader.readAsDataURL(file);
-            }).catch(() => null);
-
-            if (!dataUrl) {
-                alert(`Could not read "${file.name || "this file"}".`);
-                continue;
-            }
-
-            // Browser image decoders support common formats such as PNG, JPEG,
-            // GIF, WebP, BMP and SVG; unsupported formats are skipped safely.
-            const isDecodableImage = await new Promise(resolve => {
-                const image = new Image();
-                image.onload = () => resolve(true);
-                image.onerror = () => resolve(false);
-                image.src = dataUrl;
-            });
-
-            if (!isDecodableImage) {
-                alert(`"${file.name || "Pasted file"}" is not a supported image format in this browser.`);
-                continue;
-            }
-
-            remarkImages.push({
-                name: file.name || `Pasted image ${remarkImages.length + 1}`,
-                dataUrl
-            });
-            added++;
-        }
-
-        if (added) {
-            renderRemarkImageThumbnails();
-            generateReport();
-            scheduleDraftSave();
-            showToast(added === 1 ? "Image added to remarks" : `${added} images added to remarks`);
-        }
-    }
-
-    if (remarksImagesInput) {
-        remarksImagesInput.addEventListener("change", async () => {
-            await addRemarkImageFiles(remarksImagesInput.files);
-            remarksImagesInput.value = "";
-        });
-    }
-
-    // Supports screenshots/images copied to the clipboard (Ctrl+V).
-    // Clipboard access is limited to image data supplied by the browser/OS.
-    document.addEventListener("paste", async event => {
-        const items = Array.from(event.clipboardData?.items || []);
-        const imageFiles = items
-            .filter(item => item.kind === "file" && (item.type.startsWith("image/") || !item.type))
-            .map(item => item.getAsFile())
-            .filter(Boolean);
-
-        if (!imageFiles.length) return;
-
-        event.preventDefault();
-        await addRemarkImageFiles(imageFiles);
-    });
 
     /* =====================================================
        GENERAL FORM INPUT EVENTS
