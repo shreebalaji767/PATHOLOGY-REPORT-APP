@@ -2959,3 +2959,52 @@ textarea {
         max-width: none;
     }
 }
+
+
+/* Vitamin B12 interpretation guide shown directly below the Vitamin B12 test */
+.b12-interpretation-cell {
+    padding: 0 !important;
+    white-space: normal;
+    text-align: left;
+    font-size: 10px;
+    line-height: 1.35;
+    border: 1px solid #aab8bf !important;
+}
+.b12-guide-title {
+    padding: 5px 8px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: .5px;
+    background: #edf2e3;
+    border-bottom: 1px solid #aab8bf;
+}
+.b12-guide-intro { padding: 7px 9px 4px; }
+.b12-interpretation-cell ul { margin: 3px 0 5px; padding-left: 20px; }
+.b12-guide-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #aab8bf;
+    border-bottom: 1px solid #aab8bf;
+}
+.b12-guide-columns > div { padding: 6px 9px; }
+.b12-guide-columns > div + div { border-left: 1px solid #aab8bf; }
+.b12-level-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9px; }
+.b12-level-table th, .b12-level-table td {
+    padding: 4px 6px;
+    border: 1px solid #c5d0d5;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+.b12-level-table th { background: #eef2f4; text-align: left; }
+.b12-level-table th:first-child { width: 18%; }
+.b12-level-table th:nth-child(2) { width: 15%; }
+.b12-level-deficient { background: #e8a3a3; }
+.b12-level-borderline { background: #d8edf2; }
+.b12-level-lownormal { background: #c9d9a5; }
+.b12-level-optimal { background: #d9edf2; }
+.b12-level-high { background: #b9dce7; }
+.b12-guide-note { padding: 5px 8px; font-size: 9px; background: #f7f9fa; }
+@media (max-width: 600px) {
+    .b12-guide-columns { grid-template-columns: 1fr; }
+    .b12-guide-columns > div + div { border-left: 0; border-top: 1px solid #aab8bf; }
+}
