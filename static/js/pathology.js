@@ -1637,11 +1637,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                         <table class="b12-level-table">
                                             <thead><tr><th>Level (pg/mL)</th><th>Status</th><th>Possible effects / clinical significance</th></tr></thead>
                                             <tbody>
-                                                <tr class="b12-level-deficient"><td>&lt;150</td><td>Deficient</td><td>High risk of megaloblastic anemia and neurological symptoms (tingling, numbness, balance issues); fatigue and cognitive changes.</td></tr>
-                                                <tr class="b12-level-borderline"><td>150–200</td><td>Borderline low</td><td>Possible early deficiency; additional tests (MMA, homocysteine) may help confirm.</td></tr>
-                                                <tr class="b12-level-lownormal"><td>200–300</td><td>Low-normal</td><td>May be adequate for some, but borderline for others; assess symptoms and malabsorption risk.</td></tr>
-                                                <tr class="b12-level-optimal"><td>300–900</td><td>Optimal</td><td>Adequate stores for most individuals; supports normal nerve function and blood formation.</td></tr>
-                                                <tr class="b12-level-high"><td>&gt;900</td><td>High</td><td>Often associated with supplementation or injections; persistent unexplained elevation may need clinical evaluation.</td></tr>
+                                                <tr class="b12-level-deficient"><td>&lt;145</td><td>Deficient</td><td>Below the supplied laboratory reference interval.</td></tr>
+                                                <tr class="b12-level-borderline"><td>145–179</td><td>Indeterminate</td><td>Indeterminate range according to the supplied laboratory reference interval.</td></tr>
+                                                <tr class="b12-level-lownormal"><td>180–914</td><td>Normal</td><td>Within the supplied laboratory reference interval.</td></tr>
+                                                <tr class="b12-level-high"><td>&gt;914</td><td>Hypercobalaminemia</td><td>Elevated Vitamin B12; interpret with clinical context and supplementation history.</td></tr>
                                             </tbody>
                                         </table>
                                         <div class="b12-guide-note">Interpret results alongside the laboratory reference interval, symptoms, and clinical context. This guide is informational and does not replace clinical assessment.</div>
