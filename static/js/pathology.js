@@ -1632,287 +1632,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CBC TEMPLATE
+       CBC TEMPLATE — 19 PARAMETERS
+       Reference intervals supplied for the user's report format.
     ====================================================== */
 
     function loadCBCTemplate() {
-
-
-        sectionsEditor.innerHTML =
-            "";
-
+        sectionsEditor.innerHTML = "";
 
         addSection({
-
-            heading:
-                "HAEMATOLOGY",
-
-            subheading:
-                "COMPLETE BLOOD COUNT",
-
+            heading: "HAEMATOLOGY",
+            subheading: "COMPLETE BLOOD COUNT (CBC)",
             results: [
-
-                {
-                    test:
-                        "Hemoglobin",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "g/dL",
-
-                    range:
-                        "Male: 13–17 | Female: 12–15"
-
-                },
-
-                {
-                    test:
-                        "Total Leukocyte Count",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "cells/µL",
-
-                    range:
-                        "4,000–11,000"
-
-                },
-
-                {
-                    test:
-                        "Neutrophils",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "40–75"
-
-                },
-
-                {
-                    test:
-                        "Lymphocytes",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "20–45"
-
-                },
-
-                {
-                    test:
-                        "Eosinophils",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "1–6"
-
-                },
-
-                {
-                    test:
-                        "Monocytes",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "2–10"
-
-                },
-
-                {
-                    test:
-                        "Basophils",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "0–2"
-
-                },
-
-                {
-                    test:
-                        "Platelet Count",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "lakh/µL",
-
-                    range:
-                        "1.5–4.5"
-
-                },
-
-                {
-                    test:
-                        "RBC Count",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "million/µL",
-
-                    range:
-                        "Male: 4.5–5.9 | Female: 4.0–5.2"
-
-                },
-
-                {
-                    test:
-                        "PCV / Hematocrit",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "Male: 40–54 | Female: 36–46"
-
-                },
-
-                {
-                    test:
-                        "MCV",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "fL",
-
-                    range:
-                        "80–100"
-
-                },
-
-                {
-                    test:
-                        "MCH",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "pg",
-
-                    range:
-                        "27–33"
-
-                },
-
-                {
-                    test:
-                        "MCHC",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "g/dL",
-
-                    range:
-                        "32–36"
-
-                },
-
-                {
-                    test:
-                        "RDW",
-
-                    value:
-                        "",
-
-                    flag:
-                        "",
-
-                    unit:
-                        "%",
-
-                    range:
-                        "11.5–14.5"
-
-                }
-
+                { test: "WBC", value: "", flag: "", unit: "×10³/µL", range: "4.0–10.0" },
+                { test: "Lymph#", value: "", flag: "", unit: "×10³/µL", range: "1.0–4.0" },
+                { test: "Mid#", value: "", flag: "", unit: "×10³/µL", range: "0.1–1.2" },
+                { test: "Gran#", value: "", flag: "", unit: "×10³/µL", range: "1.5–7.0" },
+                { test: "Lymph%", value: "", flag: "", unit: "%", range: "20.0–40.0" },
+                { test: "Mid%", value: "", flag: "", unit: "%", range: "3.0–14.0" },
+                { test: "Gran%", value: "", flag: "", unit: "%", range: "50.0–70.0" },
+                { test: "HGB", value: "", flag: "", unit: "g/dL", range: "11.0–15.0" },
+                { test: "RBC", value: "", flag: "", unit: "million/µL", range: "3.50–5.0" },
+                { test: "HCT", value: "", flag: "", unit: "%", range: "37.0–47.0" },
+                { test: "MCV", value: "", flag: "", unit: "fL", range: "80.0–100.0" },
+                { test: "MCH", value: "", flag: "", unit: "pg", range: "27.0–34.0" },
+                { test: "MCHC", value: "", flag: "", unit: "g/dL", range: "32.0–36.0" },
+                { test: "RDW-CV", value: "", flag: "", unit: "%", range: "11.0–16.0" },
+                { test: "RDW-SD", value: "", flag: "", unit: "fL", range: "35.0–56.0" },
+                { test: "PLT", value: "", flag: "", unit: "×10³/µL", range: "150–450" },
+                { test: "MPV", value: "", flag: "", unit: "fL", range: "6.5–12.0" },
+                { test: "PDW", value: "", flag: "", unit: "%", range: "9.0–17.0" },
+                { test: "PCT", value: "", flag: "", unit: "%", range: "0.108–0.282" }
             ]
-
         });
 
-
         generateReport();
-
+        showToast("CBC template loaded — 19 parameters");
     }
-
 
 
     /* =====================================================
