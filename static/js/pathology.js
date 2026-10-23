@@ -1962,7 +1962,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const currentRemarks = remarks.value.trim();
                 const containsLegacyVitaminDText =
                     /IN REMARKS|INTERPRETATION CHART|\\?\\?\\*?LEVEL\\*?|svg\\s*svg/i.test(currentRemarks) ||
-                    /\\\\#\\s*\\*{0,2}INTERPRETATION|\\\\\\*{2}Note/i.test(currentRemarks);
+                    (currentRemarks.includes("\\\\#") && currentRemarks.toUpperCase().includes("INTERPRETATION")) ||
+                    currentRemarks.includes("\\\\**Note");
                 if (!currentRemarks || containsLegacyVitaminDText) {
                     remarks.value = vitaminDInterpretationRemarks;
                 }
