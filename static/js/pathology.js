@@ -1756,7 +1756,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 results: [
                     {
                         test: "Fasting Plasma Glucose",
-                        value: "81.9",
+                        value: "",
                         unit: "mg/dL",
                         range: "70–99: Normal; 100–125: Prediabetes; ≥126: Diabetes*"
                     }
