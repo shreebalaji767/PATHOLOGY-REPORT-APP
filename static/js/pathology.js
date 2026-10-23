@@ -935,6 +935,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 }
                             );
 
+                        const testRemarksInput = row.querySelector(".test-remarks-input");
+                        if (testRemarksInput) testRemarksInput.value = "";
+
                         row
                             .querySelector(
                                 ".flag-input"
