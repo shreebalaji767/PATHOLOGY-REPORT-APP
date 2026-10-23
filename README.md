@@ -1,66 +1,68 @@
 # BLSSNVJ21 Pathology Report Creator
 
-**Latest Version — 2026 Upgrade**
+A browser-based pathology report editor for creating, previewing, saving, and printing professional laboratory reports. The responsive interface supports offline use as a Progressive Web App (PWA).
 
-A browser-based pathology report creation, preview, printing and offline PWA application.
+## ✨ Highlights
 
-## Current Version
+- **Neon Cyberpunk Dark Mode** — near-black surfaces, neon cyan accents, subtle glow effects, and magenta focus highlights.
+- **Light and dark interface styling** for comfortable use in different environments.
+- **Live report preview** while editing report details and results.
+- **Quick templates** for common panels, including CBC, LFT, KFT, Lipid Profile, Thyroid Profile, and Urine Routine / Microscopy.
+- **A4-ready report printing** designed to keep the printed report white and readable, even when the app is in dark mode.
+- **Saved Reports** stored locally in the browser.
+- **Automatic local draft saving** to help preserve in-progress work.
+- **IndexedDB browser storage** — no server-side patient/report database is required.
+- **Installable PWA** with a web app manifest and service worker.
+- **Offline support** through cached application assets.
+- **Responsive layout** for desktop and mobile screens.
+- **Keyboard shortcuts**, application branding, favicon, and SEO/Open Graph metadata.
+- `robots.txt`, `sitemap.xml`, and security response headers.
 
-**BLSSNVJ21 Pathology Report Creator — Latest**
+## 🌌 Neon Dark Mode
 
-This repository contains the latest upgraded version with:
+The dark theme is designed as a coordinated neon interface rather than a simple dark background:
 
-- **BLSSNVJ21 branding** throughout the application
-- Professional pathology report editor and live preview
-- Quick templates for CBC, LFT, KFT, Lipid Profile, Thyroid Profile and Urine Routine / Microscopy
-- Browser-only storage using **IndexedDB**
-- Automatic local draft saving
-- Saved Reports management
-- No database
-- No Supabase
-- No server-side patient/report storage
-- PWA installation support
-- Offline application support
-- Service worker update detection
-- A4 print-ready pathology reports
-- Browser favicon and application logo
-- SEO metadata and Open Graph metadata
-- Schema.org structured data
-- `robots.txt` and `sitemap.xml`
-- Security response headers
-- Keyboard shortcuts
-- Responsive desktop and mobile interface
+| UI element | Theme |
+| --- | --- |
+| Main background | Deep black |
+| Panels and cards | Dark charcoal |
+| Headings and interactive accents | Neon cyan |
+| Focus outlines | Neon magenta |
+| Normal result indicators | Neon green |
+| High / abnormal result indicators | Red / amber |
+| Form controls and tables | Dark surfaces with contrasting borders |
 
-## Storage & Privacy
+To load the latest deployed styling, refresh the app with **Ctrl + F5**. If an installed PWA still shows an older version, close and reopen it after refreshing the website.
 
-Patient and report data are stored **only in the user's browser**.
+## 🔐 Storage & Privacy
 
-The application does not require a server-side patient database. Browser storage can be cleared by the user through the browser's site-data/storage controls.
+- Patient and report data are stored in the user's browser using local browser storage.
+- The app does not require a server-side patient/report database.
+- Clearing the browser's site data may delete locally saved reports and drafts.
+- Use an appropriate device lock and browser profile when handling confidential patient information.
 
-## PWA
+## 📲 Progressive Web App
 
-The application can be installed as a Progressive Web App on supported browsers.
-
-It includes:
+The application includes:
 
 - Web App Manifest
-- Service Worker
-- Offline cache
-- Install prompt
-- Automatic service-worker update detection
+- Service Worker and offline asset cache
+- Install support on compatible browsers
+- Service-worker update handling
 
-## Technology
+Offline availability can depend on whether the app has already been loaded and its required assets cached.
 
-- Python
-- Flask
-- HTML5
-- CSS3
-- JavaScript
-- IndexedDB
-- Service Worker
-- Web App Manifest
+## 🧰 Technology
 
-## Project Structure
+- **Python / Flask** — application server
+- **HTML5** — page structure
+- **CSS3** — responsive layout, print styles, and neon theme
+- **JavaScript** — report editor and interface behavior
+- **IndexedDB** — browser-side report storage
+- **Service Worker** — caching and offline support
+- **Web App Manifest** — installable PWA metadata
+
+## 📁 Project Structure
 
 ```text
 PATHOLOGY-REPORT-APP/
@@ -79,26 +81,31 @@ PATHOLOGY-REPORT-APP/
 └── README.md
 ```
 
-## Run Locally
+## 🚀 Run Locally
 
-Install Flask:
+1. Install Python, if it is not already installed.
+2. Install Flask:
 
-```bash
-pip install flask
-```
+   ```bash
+   pip install flask
+   ```
 
-Start the application:
+3. Start the application from the repository directory:
 
-```bash
-python app.py
-```
+   ```bash
+   python app.py
+   ```
 
-Then open the local address shown by Flask in your browser.
+4. Open the local URL printed by Flask in your browser.
 
-## Important
+## 🩺 Clinical Use Notice
 
-This application is designed for **local/browser-based report creation and printing**. It is not a replacement for laboratory information systems, diagnostic validation workflows, or clinical review.
+This tool supports report preparation, preview, and printing. It does **not** replace laboratory quality-control procedures, result verification, clinical judgment, or review by an authorized healthcare professional. Verify patient details, units, reference intervals, and all results before issuing a report.
+
+## 📄 License
+
+No license is specified in this repository. Unless a license is added, reuse and redistribution are not automatically granted.
 
 ---
 
-**BLSSNVJ21 — Latest Version**
+**BLSSNVJ21 Pathology Report Creator**
