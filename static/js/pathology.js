@@ -1892,7 +1892,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         test: "Vitamin B12 (Cyanocobalamin)",
                         value: "",
                         unit: "pg/mL",
-                        range: "< 145 - Deficient; > 914 - Hypercobalaminemia\\n180–914: Normal\\n145–179: Indeterminate"
+                        range: "< 145 - Deficient\\n> 914 - Hypercobalaminemia\\n180–914: Normal\\n145–179: Indeterminate"
                     }
                 ]
             }
