@@ -1438,6 +1438,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         "report-table";
 
 
+                    // Show the FLAG column only when at least one result has a flag.
+                    const showFlagColumn = section.results.some(
+                        item => String(item.flag || "").trim() !== ""
+                    );
+
                     table.innerHTML = `
 
                         <thead>
@@ -1452,9 +1457,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     TEST NAME
                                 </th>
 
-                                <th class="report-flag">
-                                    FLAG
-                                </th>
+                                ${showFlagColumn ? '<th class="report-flag">FLAG</th>' : ""}
 
                                 <th class="report-unit">
                                     UNIT
@@ -1550,9 +1553,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     ${escapeHTML(item.test)}
                                 </td>
 
-                                <td class="${flagClass}">
-                                    ${escapeHTML(item.flag || "—")}
-                                </td>
+                                ${showFlagColumn ? `<td class="${flagClass}">${escapeHTML(item.flag)}</td>` : ""}
 
                                 <td>
                                     ${escapeHTML(item.unit)}
