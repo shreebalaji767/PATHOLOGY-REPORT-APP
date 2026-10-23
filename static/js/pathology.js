@@ -2392,10 +2392,12 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
     }
 
     async function addRemarkImageFiles(files) {
-        const imageFiles = Array.from(files || []).filter(file => file && file.type && file.type.startsWith("image/"));
-        let added = false;
+        // Accept files regardless of their reported MIME type, then verify that
+        // the browser can actually decode them as images.
+        const candidates = Array.from(files || []).filter(file => file && typeof file.size === "number");
+        let added = 0;
 
-        for (const file of imageFiles) {
+        for (const file of candidates) {
             if (file.size > 8 * 1024 * 1024) {
                 alert(`"${file.name || "Pasted image"}" is larger than 8 MB and was skipped.`);
                 continue;
@@ -2408,20 +2410,37 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
                 reader.readAsDataURL(file);
             }).catch(() => null);
 
-            if (dataUrl) {
-                remarkImages.push({
-                    name: file.name || `Pasted image ${remarkImages.length + 1}`,
-                    dataUrl
-                });
-                added = true;
+            if (!dataUrl) {
+                alert(`Could not read "${file.name || "this file"}".`);
+                continue;
             }
+
+            // Browser image decoders support common formats such as PNG, JPEG,
+            // GIF, WebP, BMP and SVG; unsupported formats are skipped safely.
+            const isDecodableImage = await new Promise(resolve => {
+                const image = new Image();
+                image.onload = () => resolve(true);
+                image.onerror = () => resolve(false);
+                image.src = dataUrl;
+            });
+
+            if (!isDecodableImage) {
+                alert(`"${file.name || "Pasted file"}" is not a supported image format in this browser.`);
+                continue;
+            }
+
+            remarkImages.push({
+                name: file.name || `Pasted image ${remarkImages.length + 1}`,
+                dataUrl
+            });
+            added++;
         }
 
         if (added) {
             renderRemarkImageThumbnails();
             generateReport();
             scheduleDraftSave();
-            showToast(imageFiles.length === 1 ? "Image added to remarks" : "Images added to remarks");
+            showToast(added === 1 ? "Image added to remarks" : `${added} images added to remarks`);
         }
     }
 
@@ -2433,11 +2452,11 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
     }
 
     // Supports screenshots/images copied to the clipboard (Ctrl+V).
-    // Paste works anywhere in the report creator when the clipboard contains an image.
+    // Clipboard access is limited to image data supplied by the browser/OS.
     document.addEventListener("paste", async event => {
         const items = Array.from(event.clipboardData?.items || []);
         const imageFiles = items
-            .filter(item => item.kind === "file" && item.type.startsWith("image/"))
+            .filter(item => item.kind === "file" && (item.type.startsWith("image/") || !item.type))
             .map(item => item.getAsFile())
             .filter(Boolean);
 
