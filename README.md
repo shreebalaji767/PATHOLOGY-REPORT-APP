@@ -38,7 +38,7 @@ Offline availability can depend on whether the app has already been loaded and i
 
 - **Python / Flask** — application server
 - **HTML5** — page structure
-- **CSS3** — responsive layout, print styles, and neon theme
+- **CSS3** — responsive layout and print styles
 - **JavaScript** — report editor and interface behavior
 - **IndexedDB** — browser-side report storage
 - **Service Worker** — caching and offline support
