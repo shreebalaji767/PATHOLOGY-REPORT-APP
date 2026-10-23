@@ -2511,6 +2511,13 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
 
     generateReport();
 
-    // Restore the browser-only draft after the editor has been initialized.
-    loadDraft();
+    // Start with a blank report on each app visit. Do not automatically display
+    // the previous in-progress draft; keep separately saved reports untouched.
+    openStorageDB().then(db => {
+        const tx = db.transaction("drafts", "readwrite");
+        tx.objectStore("drafts").delete(DRAFT_KEY);
+    }).catch(error => {
+        console.warn("Could not clear the previous draft:", error);
+    });
+    updateStorageStatus("Ready for a new report");
 });
