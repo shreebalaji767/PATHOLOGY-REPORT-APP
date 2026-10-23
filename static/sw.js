@@ -1,4 +1,4 @@
-const CACHE_NAME = "blssnvj21-pathology-v12";
+const CACHE_NAME = "blssnvj21-pathology-v13";
 const APP_SHELL = [
   "/",
   "/static/css/pathology.css",
