@@ -1597,6 +1597,59 @@ document.addEventListener("DOMContentLoaded", () => {
                                 tbody.appendChild(remarksRow);
                             }
 
+                            // Add the Vitamin B12 interpretation guide directly below this test only.
+                            if (/vitamin\\s*b\\s*12|cyanocobalamin/i.test(String(item.test || ""))) {
+                                const guideRow = document.createElement("tr");
+                                guideRow.className = "b12-interpretation-row";
+                                const guideColspan = showFlagColumn ? 6 : 5;
+                                guideRow.innerHTML = `
+                                    <td colspan="${guideColspan}" class="b12-interpretation-cell">
+                                        <div class="b12-guide-title">INTERPRETATION</div>
+                                        <div class="b12-guide-intro">
+                                            <strong>Vitamin B12</strong>, also known as Cyanocobalamin in its synthetic form, is an essential water-soluble vitamin that plays a key role in:
+                                            <ul>
+                                                <li>Red blood cell production — helps prevent megaloblastic anemia</li>
+                                                <li>Nervous system health — maintains the myelin sheath around nerves</li>
+                                                <li>DNA synthesis — vital for cell division</li>
+                                                <li>Energy metabolism — helps convert food into energy</li>
+                                            </ul>
+                                        </div>
+                                        <div class="b12-guide-columns">
+                                            <div>
+                                                <strong>Deficiency symptoms</strong>
+                                                <ul>
+                                                    <li>Fatigue and weakness</li>
+                                                    <li>Numbness or tingling in hands/feet</li>
+                                                    <li>Memory issues or confusion</li>
+                                                    <li>Glossitis (inflamed tongue)</li>
+                                                    <li>Megaloblastic anemia</li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <strong>Sources</strong>
+                                                <ul>
+                                                    <li>Animal-based foods: meat (especially liver), fish, eggs, dairy</li>
+                                                    <li>Fortified foods: cereals, plant milks, nutritional yeast</li>
+                                                    <li>Supplements: tablets, injections, sublingual drops</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <table class="b12-level-table">
+                                            <thead><tr><th>Level (pg/mL)</th><th>Status</th><th>Possible effects / clinical significance</th></tr></thead>
+                                            <tbody>
+                                                <tr class="b12-level-deficient"><td>&lt;150</td><td>Deficient</td><td>High risk of megaloblastic anemia and neurological symptoms (tingling, numbness, balance issues); fatigue and cognitive changes.</td></tr>
+                                                <tr class="b12-level-borderline"><td>150–200</td><td>Borderline low</td><td>Possible early deficiency; additional tests (MMA, homocysteine) may help confirm.</td></tr>
+                                                <tr class="b12-level-lownormal"><td>200–300</td><td>Low-normal</td><td>May be adequate for some, but borderline for others; assess symptoms and malabsorption risk.</td></tr>
+                                                <tr class="b12-level-optimal"><td>300–900</td><td>Optimal</td><td>Adequate stores for most individuals; supports normal nerve function and blood formation.</td></tr>
+                                                <tr class="b12-level-high"><td>&gt;900</td><td>High</td><td>Often associated with supplementation or injections; persistent unexplained elevation may need clinical evaluation.</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="b12-guide-note">Interpret results alongside the laboratory reference interval, symptoms, and clinical context. This guide is informational and does not replace clinical assessment.</div>
+                                    </td>
+                                `;
+                                tbody.appendChild(guideRow);
+                            }
+
                         }
                     );
 
