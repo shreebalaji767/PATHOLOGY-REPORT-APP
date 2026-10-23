@@ -1946,7 +1946,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const remarks = document.getElementById("remarks");
             if (specimen) specimen.value = "Serum";
             if (method) method.value = "Chemiluminescence";
-            if (remarks && !remarks.value.trim()) remarks.value = vitaminDInterpretationRemarks;
+            if (remarks) {
+                const currentRemarks = remarks.value.trim();
+                const containsLegacyVitaminDText =
+                    /IN REMARKS|INTERPRETATION CHART|\\?\\?\\*?LEVEL\\*?|svg\\s*svg/i.test(currentRemarks) ||
+                    /\\\\#\\s*\\*{0,2}INTERPRETATION|\\\\\\*{2}Note/i.test(currentRemarks);
+                if (!currentRemarks || containsLegacyVitaminDText) {
+                    remarks.value = vitaminDInterpretationRemarks;
+                }
+            }
         }
 
         generateReport();
