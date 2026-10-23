@@ -570,15 +570,14 @@
                     </button>
 
                     <div class="quick-template-picker">
-                        <label for="quickTemplateSelect">Templates (select multiple with Ctrl / ⌘)</label>
+                        <label for="quickTemplateSelect">Add a Template</label>
                         <select
                             id="quickTemplateSelect"
                             class="quick-template-select"
-                            aria-label="Choose one or more pathology report templates"
-                            title="Choose one or more report templates"
-                            multiple
-                            size="4"
+                            aria-label="Choose a pathology report template"
+                            title="Choose a report template"
                         >
+                            <option value="">Select a template...</option>
                             <option value="cbc">CBC Template</option>
                             <option value="fpg">Fasting Plasma Glucose</option>
                             <option value="calcium">Serum Calcium</option>
@@ -588,7 +587,7 @@
                             <option value="thyroid">Thyroid Profile</option>
                             <option value="urine">Urine Routine / Microscopy</option>
                         </select>
-                        <button type="button" class="btn btn-light" id="loadSelectedTemplatesBtn">Load Selected Templates</button>
+                        <button type="button" class="btn btn-light" id="loadSelectedTemplatesBtn">+ Add Template</button>
                     </div>
 
                     <button
