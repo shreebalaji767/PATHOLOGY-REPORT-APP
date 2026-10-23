@@ -1882,6 +1882,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         range: "8.8–10.6"
                     }
                 ]
+            },
+
+            b12: {
+                heading: "BIOCHEMISTRY",
+                subheading: "VITAMIN B12 (CYANOCOBALAMIN)",
+                results: [
+                    {
+                        test: "Vitamin B12 (Cyanocobalamin)",
+                        value: "",
+                        unit: "pg/mL",
+                        range: "<145: Deficient; 145–179: Indeterminate; 180–914: Normal; >914: Hypercobalaminemia"
+                    }
+                ]
             }
         };
 
