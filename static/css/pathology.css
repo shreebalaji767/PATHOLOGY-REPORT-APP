@@ -2871,13 +2871,171 @@ textarea {
 }
 
 
+
 /* =========================================================
-   UI UPGRADE: DARK MODE + POLISHED INTERACTIONS
-   Screen-only theme; printed reports stay on a white page.
+   COMPLETE DARK THEME — EVERY APP SURFACE
+   Reports use a white background only when printed.
 ========================================================= */
-.theme-toggle-btn {
-    min-width: 112px;
+:root {
+    color-scheme: light;
 }
+body.dark-mode {
+    color-scheme: dark;
+    --primary: #7fc5ff;
+    --primary-dark: #a4d8ff;
+    --secondary: #75baff;
+    --success: #63d6a0;
+    --danger: #ff8f91;
+    --text: #edf3f8;
+    --muted: #a9bac8;
+    --border: #354958;
+    --soft: #1a2a36;
+    --white: #111c25;
+    --shadow: 0 12px 32px rgba(0,0,0,.32);
+    background: #0b1117 !important;
+    color: #edf3f8 !important;
+}
+body.dark-mode .app-shell {
+    background: #0b1117 !important;
+    color: #edf3f8 !important;
+}
+body.dark-mode .workspace,
+body.dark-mode .editor-panel,
+body.dark-mode .preview-panel,
+body.dark-mode .panel-card,
+body.dark-mode .form-content,
+body.dark-mode .form-grid,
+body.dark-mode .sections-editor,
+body.dark-mode .section-heading-fields,
+body.dark-mode .section-results-wrapper,
+body.dark-mode .section-results-editor,
+body.dark-mode .report-section-editor,
+body.dark-mode .patient-details-box,
+body.dark-mode .specimen-box,
+body.dark-mode .method-box,
+body.dark-mode .remarks-box,
+body.dark-mode .saved-report-item,
+body.dark-mode .modal-content,
+body.dark-mode .modal-body {
+    background: #121e28 !important;
+    color: #edf3f8 !important;
+    border-color: #354958 !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+body.dark-mode .panel-heading,
+body.dark-mode .section-editor-header,
+body.dark-mode .section-result-toolbar,
+body.dark-mode .section-toolbar,
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer,
+body.dark-mode .saved-reports-toolbar,
+body.dark-mode .saved-reports-body,
+body.dark-mode .section-results-wrapper > *,
+body.dark-mode .report-table thead,
+body.dark-mode .report-table th {
+    background: #1b2b38 !important;
+    color: #edf3f8 !important;
+    border-color: #354958 !important;
+}
+body.dark-mode .form-group label,
+body.dark-mode .section-editor-number,
+body.dark-mode .preview-label,
+body.dark-mode .storage-note,
+body.dark-mode .brand-subtitle,
+body.dark-mode .patient-row,
+body.dark-mode .remarks-title,
+body.dark-mode .report-sub-heading,
+body.dark-mode .saved-report-item span,
+body.dark-mode .saved-report-item small {
+    color: #b7c7d4 !important;
+}
+body.dark-mode input:not([type="checkbox"]):not([type="radio"]),
+body.dark-mode select,
+body.dark-mode textarea,
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea {
+    color-scheme: dark;
+    background: #0b141c !important;
+    color: #f2f6fa !important;
+    border: 1px solid #405565 !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.18);
+}
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #8295a5 !important;
+    opacity: 1;
+}
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: #6dbdff !important;
+    box-shadow: 0 0 0 3px rgba(109,189,255,.18) !important;
+}
+body.dark-mode .section-editor-header,
+body.dark-mode .section-editor-number,
+body.dark-mode .editor-test-no,
+body.dark-mode .investigation-number {
+    color: #dceaf5 !important;
+}
+body.dark-mode .duplicate-section-btn,
+body.dark-mode .row-move-btn,
+body.dark-mode .btn-light {
+    background: #263b4b !important;
+    color: #f0f6fb !important;
+    border: 1px solid #405565 !important;
+}
+body.dark-mode .btn-secondary {
+    background: #344957 !important;
+    color: #f3f7fb !important;
+}
+body.dark-mode .btn-primary {
+    background: #1769a6 !important;
+    color: #fff !important;
+}
+body.dark-mode .btn-success {
+    background: #16734a !important;
+    color: #fff !important;
+}
+body.dark-mode .btn-danger-outline {
+    background: #2b1b21 !important;
+    color: #ffb4b7 !important;
+    border-color: #80434b !important;
+}
+body.dark-mode .empty-storage {
+    color: #a9bac8 !important;
+}
+body.dark-mode .modal-backdrop {
+    background: rgba(0,0,0,.78) !important;
+}
+body.dark-mode .app-toast {
+    background: #e5eef5 !important;
+    color: #111c25 !important;
+    box-shadow: 0 12px 35px rgba(0,0,0,.45);
+}
+body.dark-mode .report-table,
+body.dark-mode .report-table td,
+body.dark-mode .report-table th {
+    border-color: #354958 !important;
+}
+body.dark-mode .report-table td {
+    background: #121e28 !important;
+    color: #edf3f8 !important;
+}
+body.dark-mode .report-table tbody tr:nth-child(even) td {
+    background: #172631 !important;
+}
+body.dark-mode .report-main-heading {
+    color: #f2f7fb !important;
+}
+body.dark-mode .result-value {
+    color: #f2f7fb !important;
+}
+body.dark-mode .flag-normal { color: #63d6a0 !important; }
+body.dark-mode .flag-high { color: #ff8f91 !important; }
+body.dark-mode .flag-low { color: #ffd17a !important; }
+body.dark-mode .flag-abnormal { color: #ffb36b !important; }
+.theme-toggle-btn { min-width: 112px; }
 .btn, .brand-logo, .panel-card, .report-section-editor,
 .form-group input, .form-group select, .form-group textarea {
     transition: background-color .18s ease, color .18s ease,
@@ -2892,85 +3050,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 @media (hover: hover) {
     .btn:hover { transform: translateY(-1px); }
 }
-body.dark-mode {
-    --text: #e6edf3;
-    --muted: #a4b2bf;
-    --border: #344554;
-    --soft: #1b2a36;
-    --white: #17232d;
-    --shadow: 0 10px 30px rgba(0,0,0,.22);
-    background: #101a23;
-    color: var(--text);
-}
-body.dark-mode .workspace,
-body.dark-mode .editor-panel,
-body.dark-mode .preview-panel,
-body.dark-mode .panel-card {
-    background: #17232d;
-    color: var(--text);
-    border-color: var(--border);
-}
-body.dark-mode .panel-heading,
-body.dark-mode .section-editor-header,
-body.dark-mode .section-result-toolbar,
-body.dark-mode .saved-reports-toolbar {
-    background: #202f3b;
-    color: var(--text);
-    border-color: var(--border);
-}
-body.dark-mode .form-group label,
-body.dark-mode .section-editor-number,
-body.dark-mode .preview-label,
-body.dark-mode .storage-note {
-    color: #b9c7d2;
-}
-body.dark-mode input:not([type="checkbox"]):not([type="radio"]),
-body.dark-mode select,
-body.dark-mode textarea {
-    background: #101a23;
-    color: #e6edf3;
-    border-color: #405463;
-}
-body.dark-mode .report-section-editor,
-body.dark-mode .section-results-wrapper,
-body.dark-mode .section-results-editor,
-body.dark-mode .saved-report-item {
-    background: #17232d;
-    border-color: var(--border);
-    color: var(--text);
-}
-body.dark-mode .saved-report-item strong,
-body.dark-mode .saved-report-item span {
-    color: #e6edf3;
-}
-body.dark-mode .saved-report-item small {
-    color: #a4b2bf;
-}
-body.dark-mode .row-move-btn,
-body.dark-mode .duplicate-section-btn {
-    background: #263947;
-    color: #e6edf3;
-}
-body.dark-mode .btn-light {
-    background: #263947;
-    color: #e6edf3;
-    border: 1px solid #405463;
-}
-body.dark-mode .modal-content {
-    background: #17232d;
-    color: #e6edf3;
-    border-color: #344554;
-}
-body.dark-mode .modal-header,
-body.dark-mode .modal-footer {
-    background: #202f3b;
-    border-color: #344554;
-}
-body.dark-mode .empty-storage,
-body.dark-mode .empty-print-header,
-body.dark-mode .empty-print-footer {
-    color: #a4b2bf;
-}
 @media (max-width: 850px) {
     .topbar {
         height: auto;
@@ -2984,9 +3063,7 @@ body.dark-mode .empty-print-footer {
         overflow-x: auto;
         padding-bottom: 3px;
     }
-    .top-actions .btn {
-        flex: 0 0 auto;
-    }
+    .top-actions .btn { flex: 0 0 auto; }
 }
 @media (max-width: 480px) {
     .brand-title { font-size: 14px; }
@@ -2995,10 +3072,21 @@ body.dark-mode .empty-print-footer {
     .theme-toggle-btn { min-width: 100px; }
 }
 @media print {
-    body.dark-mode, body.dark-mode * {
-        color: initial;
-    }
     body.dark-mode {
+        color-scheme: light !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+    body.dark-mode .app-shell,
+    body.dark-mode .print-area,
+    body.dark-mode .print-area * {
+        color: #000 !important;
+        background: #fff !important;
+        box-shadow: none !important;
+    }
+    body.dark-mode .print-area .report-table td,
+    body.dark-mode .print-area .report-table th {
+        color: #000 !important;
         background: #fff !important;
     }
 }
