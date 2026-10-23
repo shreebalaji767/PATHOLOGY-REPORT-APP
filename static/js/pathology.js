@@ -2094,7 +2094,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const type = quickTemplateSelect.value;
             if (type) {
                 loadQuickTemplate(type);
-                quickTemplateSelect.value = "";
+                // Keep the chosen template visible in the dropdown after loading.
             }
         });
     }
