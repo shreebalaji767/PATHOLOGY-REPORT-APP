@@ -39,9 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const addSectionBtn =
         document.getElementById("addSectionBtn");
 
-    const cbcTemplateBtn =
-        document.getElementById("cbcTemplateBtn");
-
     const clearSectionsBtn =
         document.getElementById("clearSectionsBtn");
 
@@ -2039,11 +2036,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
-
-    cbcTemplateBtn.addEventListener(
-        "click",
-        () => loadQuickTemplate("cbc")
-    );
 
     const quickTemplateSelect = document.getElementById("quickTemplateSelect");
 
