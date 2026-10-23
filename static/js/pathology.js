@@ -1796,8 +1796,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (type === "calcium") {
             const specimen = document.getElementById("specimen");
             const method = document.getElementById("method");
+            const remarks = document.getElementById("remarks");
             if (specimen) specimen.value = "Serum";
             if (method) method.value = "Arsenazo";
+            if (remarks) remarks.value = "Calcium is useful to help diagnose and monitor many types of medical conditions, including conditions that affect your bones, kidneys, digestive system, thyroid, and parathyroid glands. Increased levels of calcium may cause rhythm.";
         }
 
         generateReport();
