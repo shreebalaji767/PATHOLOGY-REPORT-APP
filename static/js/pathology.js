@@ -2391,28 +2391,61 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
         });
     }
 
-    if (remarksImagesInput) {
-        remarksImagesInput.addEventListener("change", async () => {
-            const files = Array.from(remarksImagesInput.files || []).filter(file => file.type.startsWith("image/"));
-            for (const file of files) {
-                if (file.size > 8 * 1024 * 1024) {
-                    alert(`"${file.name}" is larger than 8 MB and was skipped.`);
-                    continue;
-                }
-                const dataUrl = await new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = () => reject(reader.error);
-                    reader.readAsDataURL(file);
-                }).catch(() => null);
-                if (dataUrl) remarkImages.push({ name: file.name, dataUrl });
+    async function addRemarkImageFiles(files) {
+        const imageFiles = Array.from(files || []).filter(file => file && file.type && file.type.startsWith("image/"));
+        let added = false;
+
+        for (const file of imageFiles) {
+            if (file.size > 8 * 1024 * 1024) {
+                alert(`"${file.name || "Pasted image"}" is larger than 8 MB and was skipped.`);
+                continue;
             }
-            remarksImagesInput.value = "";
+
+            const dataUrl = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(file);
+            }).catch(() => null);
+
+            if (dataUrl) {
+                remarkImages.push({
+                    name: file.name || `Pasted image ${remarkImages.length + 1}`,
+                    dataUrl
+                });
+                added = true;
+            }
+        }
+
+        if (added) {
             renderRemarkImageThumbnails();
             generateReport();
             scheduleDraftSave();
+            showToast(imageFiles.length === 1 ? "Image added to remarks" : "Images added to remarks");
+        }
+    }
+
+    if (remarksImagesInput) {
+        remarksImagesInput.addEventListener("change", async () => {
+            await addRemarkImageFiles(remarksImagesInput.files);
+            remarksImagesInput.value = "";
         });
     }
+
+    // Supports screenshots/images copied to the clipboard (Ctrl+V).
+    // Paste works anywhere in the report creator when the clipboard contains an image.
+    document.addEventListener("paste", async event => {
+        const items = Array.from(event.clipboardData?.items || []);
+        const imageFiles = items
+            .filter(item => item.kind === "file" && item.type.startsWith("image/"))
+            .map(item => item.getAsFile())
+            .filter(Boolean);
+
+        if (!imageFiles.length) return;
+
+        event.preventDefault();
+        await addRemarkImageFiles(imageFiles);
+    });
 
     /* =====================================================
        GENERAL FORM INPUT EVENTS
