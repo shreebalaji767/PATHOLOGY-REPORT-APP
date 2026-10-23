@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const DRAFT_KEY = "current-draft";
 
     let draftSaveTimer = null;
+    let remarkImages = [];
 
     function openStorageDB() {
         return new Promise((resolve, reject) => {
@@ -126,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "reportDate","reportTime","specimen","clinicalHistory","method","remarks"
         ];
 
-        const data = { fields: {}, sections: getSectionsData() };
+        const data = { fields: {}, sections: getSectionsData(), remarkImages };
 
         fields.forEach(id => {
             const el = document.getElementById(id);
@@ -143,6 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const el = document.getElementById(id);
             if (el) el.value = value || "";
         });
+
+        remarkImages = Array.isArray(data.remarkImages) ? data.remarkImages : [];
+        renderRemarkImageThumbnails();
 
         sectionsEditor.innerHTML = "";
 
@@ -1687,7 +1691,15 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        if (remarks) {
+        const remarksImagesPreview = document.getElementById("previewRemarksImages");
+        if (remarksImagesPreview) {
+            remarksImagesPreview.innerHTML = remarkImages.map((image, index) =>
+                `<figure class="remarks-image-item"><img src="${image.dataUrl}" alt="${escapeHTML(image.name || "Remarks image " + (index + 1))}"><figcaption>${escapeHTML(image.name || "Image " + (index + 1))}</figcaption></figure>`
+            ).join("");
+            remarksImagesPreview.style.display = remarkImages.length ? "" : "none";
+        }
+
+        if (remarks || remarkImages.length) {
 
             remarksBox.style.display =
                 "";
@@ -2353,6 +2365,54 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
 
     // Vitamin D interpretation is loaded when the Vitamin D template is selected.
 
+
+    /* =====================================================
+       REMARKS IMAGE UPLOAD
+    ====================================================== */
+    const remarksImagesInput = document.getElementById("remarksImages");
+
+    function renderRemarkImageThumbnails() {
+        const container = document.getElementById("remarksImageUploadsPreview");
+        if (!container) return;
+        container.innerHTML = remarkImages.map((image, index) => `
+            <div class="remarks-image-thumb">
+                <img src="${image.dataUrl}" alt="${escapeHTML(image.name || "Uploaded image")}">
+                <span>${escapeHTML(image.name || "Image")}</span>
+                <button type="button" class="remove-remarks-image" data-image-index="${index}" aria-label="Remove image">×</button>
+            </div>
+        `).join("");
+        container.querySelectorAll(".remove-remarks-image").forEach(button => {
+            button.addEventListener("click", () => {
+                remarkImages.splice(Number(button.dataset.imageIndex), 1);
+                renderRemarkImageThumbnails();
+                generateReport();
+                scheduleDraftSave();
+            });
+        });
+    }
+
+    if (remarksImagesInput) {
+        remarksImagesInput.addEventListener("change", async () => {
+            const files = Array.from(remarksImagesInput.files || []).filter(file => file.type.startsWith("image/"));
+            for (const file of files) {
+                if (file.size > 8 * 1024 * 1024) {
+                    alert(`"${file.name}" is larger than 8 MB and was skipped.`);
+                    continue;
+                }
+                const dataUrl = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(reader.error);
+                    reader.readAsDataURL(file);
+                }).catch(() => null);
+                if (dataUrl) remarkImages.push({ name: file.name, dataUrl });
+            }
+            remarksImagesInput.value = "";
+            renderRemarkImageThumbnails();
+            generateReport();
+            scheduleDraftSave();
+        });
+    }
 
     /* =====================================================
        GENERAL FORM INPUT EVENTS
