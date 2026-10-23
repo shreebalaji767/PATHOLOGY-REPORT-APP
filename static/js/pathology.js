@@ -1895,6 +1895,25 @@ document.addEventListener("DOMContentLoaded", () => {
                         range: "< 145 - Deficient\\n> 914 - Hypercobalaminemia\\n180–914: Normal\\n145–179: Indeterminate"
                     }
                 ]
+            },
+
+            vitaminD: {
+                heading: "BIOCHEMISTRY",
+                subheading: "VITAMIN D TOTAL (D2+D3 FRACTIONATED)",
+                results: [
+                    {
+                        test: "Vitamin D Total (D2+D3 Fractionated)",
+                        value: "",
+                        unit: "ng/mL",
+                        range: "Deficiency : < 20\\nInsufficiency : 20-29\\nOptimum Level : 30-80\\nPossible Toxicity : > 150"
+                    },
+                    {
+                        test: "(Method: Chemiluminescence)",
+                        value: "",
+                        unit: "",
+                        range: ""
+                    }
+                ]
             }
         };
 
@@ -1921,6 +1940,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (specimen) specimen.value = "Serum";
             if (method) method.value = "Arsenazo";
             if (remarks) remarks.value = "Calcium is useful to help diagnose and monitor many types of medical conditions, including conditions\nthat affect your bones, kidneys, digestive system, thyroid, and parathyroid glands.\nIncreased levels of calcium may cause Osteopor0esis, kidney stones, renal failure, dementia, abnormal heart rhythm.";
+        } else if (type === "vitaminD") {
+            const specimen = document.getElementById("specimen");
+            const method = document.getElementById("method");
+            const remarks = document.getElementById("remarks");
+            if (specimen) specimen.value = "Serum";
+            if (method) method.value = "Chemiluminescence";
+            if (remarks && !remarks.value.trim()) remarks.value = vitaminDInterpretationRemarks;
         }
 
         generateReport();
@@ -2317,17 +2343,8 @@ This is a **clinical interpretation chart** for **vitamin D (25OH–VitD)** leve
 
 IN REMARKS`;
 
-    document.addEventListener("change", event => {
-        if (!event.target.matches(".test-input")) return;
-        if (!/vitamin\\s*d/i.test(event.target.value || "")) return;
+    // Vitamin D interpretation is loaded when the Vitamin D template is selected.
 
-        const remarks = document.getElementById("remarks");
-        if (remarks && !remarks.value.trim()) {
-            remarks.value = vitaminDInterpretationRemarks;
-            generateReport();
-            scheduleDraftSave();
-        }
-    });
 
     /* =====================================================
        GENERAL FORM INPUT EVENTS
