@@ -1700,7 +1700,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadQuickTemplate(type) {
 
-        // Combine multiple selected templates while preserving each section and its event listeners.
+        // Add selected templates to the current report without removing existing sections.
         if (Array.isArray(type)) {
             const selectedTypes = [...new Set(type)].filter(Boolean);
             if (!selectedTypes.length) {
@@ -1708,19 +1708,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // Keep any sections already in the report, including manually edited sections.
             const combinedSections = [];
+            while (sectionsEditor.firstElementChild) {
+                combinedSections.push(sectionsEditor.removeChild(sectionsEditor.firstElementChild));
+            }
+
             selectedTypes.forEach(selectedType => {
                 loadQuickTemplate(selectedType);
+
+                // Detach each newly created section so the next template can be loaded safely.
                 while (sectionsEditor.firstElementChild) {
-                    combinedSections.push(sectionsEditor.firstElementChild);
+                    combinedSections.push(sectionsEditor.removeChild(sectionsEditor.firstElementChild));
                 }
             });
 
-            sectionsEditor.innerHTML = "";
             combinedSections.forEach(section => sectionsEditor.appendChild(section));
             updateSectionNumbers();
             generateReport();
-            showToast(selectedTypes.length + " templates loaded");
+            showToast(selectedTypes.length + " template(s) added");
             return;
         }
 
