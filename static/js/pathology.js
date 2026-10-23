@@ -2249,6 +2249,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       UI UPGRADE: PERSISTENT LIGHT / DARK THEME
+    ====================================================== */
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+
+    function applyTheme(isDark) {
+        document.body.classList.toggle("dark-mode", isDark);
+        if (themeToggleBtn) {
+            themeToggleBtn.textContent = isDark ? "☀ Light mode" : "☾ Dark mode";
+            themeToggleBtn.setAttribute("aria-pressed", String(isDark));
+            themeToggleBtn.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+        }
+    }
+
+    let savedTheme = "light";
+    try {
+        savedTheme = localStorage.getItem("pathology-theme") || "light";
+    } catch (error) {
+        console.warn("Theme preference storage unavailable:", error);
+    }
+    applyTheme(savedTheme === "dark");
+
+    themeToggleBtn?.addEventListener("click", () => {
+        const isDark = !document.body.classList.contains("dark-mode");
+        applyTheme(isDark);
+        try {
+            localStorage.setItem("pathology-theme", isDark ? "dark" : "light");
+        } catch (error) {
+            console.warn("Could not save theme preference:", error);
+        }
+    });
+
+
+    /* =====================================================
        INITIALIZATION
     ====================================================== */
 
