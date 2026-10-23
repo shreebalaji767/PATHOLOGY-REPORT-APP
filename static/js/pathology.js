@@ -1761,6 +1761,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         range: "70–99: Normal; 100–125: Prediabetes; ≥126: Diabetes*"
                     }
                 ]
+            },
+
+            calcium: {
+                heading: "BIOCHEMISTRY",
+                subheading: "SERUM CALCIUM",
+                results: [
+                    {
+                        test: "Calcium, Serum (Method: Arsenazo)",
+                        value: "",
+                        unit: "mg/dL",
+                        range: "8.8–10.6"
+                    }
+                ]
             }
         };
 
@@ -1780,10 +1793,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const method = document.getElementById("method");
             if (specimen) specimen.value = "Plasma";
             if (method) method.value = "Hexokinase";
+        } else if (type === "calcium") {
+            const specimen = document.getElementById("specimen");
+            const method = document.getElementById("method");
+            if (specimen) specimen.value = "Serum";
+            if (method) method.value = "Arsenazo";
         }
 
         generateReport();
-        showToast(type === "fpg" ? "Fasting Plasma Glucose template loaded" : "Template loaded");
+        showToast(
+            type === "fpg" ? "Fasting Plasma Glucose template loaded" :
+            type === "calcium" ? "Serum Calcium template loaded" :
+            "Template loaded"
+        );
     }
 
 
