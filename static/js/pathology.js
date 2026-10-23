@@ -624,6 +624,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                 REFERENCE RANGE
                             </th>
 
+                            <th>
+                                INTERPRETATION & REMARKS
+                            </th>
+
                             <th class="editor-action">
                                 ACTION
                             </th>
@@ -875,6 +879,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             <td>
+                <textarea
+                    class="test-remarks-input"
+                    rows="2"
+                    placeholder="Optional interpretation / remarks"
+                    aria-label="Interpretation and remarks for this test"
+                >${escapeHTML(data.remarks || "")}</textarea>
+            </td>
+
+            <td>
 
                 <div class="row-action-group">
                     <button type="button" class="row-move-btn move-up-btn" title="Move test up">↑</button>
@@ -951,7 +964,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         row
             .querySelectorAll(
-                "input, select"
+                "input, select, textarea"
             )
             .forEach(element => {
 
@@ -1142,13 +1155,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         ?.value
                         .trim() || "";
 
+                const remarks = row.querySelector(".test-remarks-input")?.value.trim() || "";
 
                 if (
                     test ||
                     flag ||
                     unit ||
                     value ||
-                    range
+                    range ||
+                    remarks
                 ) {
 
                     results.push({
@@ -1157,7 +1172,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         flag,
                         unit,
                         value,
-                        range
+                        range,
+                        remarks
 
                     });
 
@@ -1567,9 +1583,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             `;
 
 
-                            tbody.appendChild(
-                                row
-                            );
+                            tbody.appendChild(row);
+
+                            const testRemarks = String(item.remarks || "").trim();
+                            if (testRemarks) {
+                                const remarksRow = document.createElement("tr");
+                                remarksRow.className = "test-remarks-report-row";
+                                const columnCount = showFlagColumn ? 6 : 5;
+                                remarksRow.innerHTML = '<td colspan="' + columnCount + '" class="test-remarks-report-cell"><strong>Interpretation &amp; Remarks:</strong> ' + escapeHTML(testRemarks).replace(/\\n/g, "<br>") + "</td>";
+                                tbody.appendChild(remarksRow);
+                            }
 
                         }
                     );
