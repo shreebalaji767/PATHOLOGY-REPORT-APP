@@ -2533,4 +2533,84 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
         if (!restored) updateStorageStatus("Ready for a new report");
         await renderSavedReports();
     });
+
+    /* =====================================================
+       UNIVERSAL BUTTON FEEDBACK (HTML5 + CSS3 + VANILLA JS)
+       Applies to static and dynamically-created buttons.
+    ====================================================== */
+    const buttonFeedbackCopy = button => {
+        const id = button.id || "";
+        const classes = button.classList;
+        const label = (button.textContent || button.getAttribute("aria-label") || "Action").trim();
+
+        if (/saveDraftBtn|saveReportBtn/i.test(id) || /save draft|save report/i.test(label)) {
+            return ["Saving…", "Saved"];
+        }
+        if (/exportDataBtn/i.test(id) || /export/i.test(label)) return ["Preparing…", "Exported"];
+        if (/importDataBtn/i.test(id) || /import/i.test(label)) return ["Opening…", "Ready"];
+        if (/print|modalPrint/i.test(id) || /print/i.test(label)) return ["Preparing…", "Ready to print"];
+        if (/preview/i.test(id) || /preview/i.test(label)) return ["Preparing…", "Preview ready"];
+        if (/remove|delete|clear|reset/i.test(id + " " + label) || classes.contains("remove-section-btn") || classes.contains("remove-investigation-btn")) {
+            return ["Working…", "Done"];
+        }
+        if (/newReportBtn/i.test(id) || /new report/i.test(label)) return ["Preparing…", "Ready"];
+        if (/install/i.test(id) || /install/i.test(label)) return ["Opening…", "Ready"];
+        if (/section|template|duplicate|move|generate/i.test(id + " " + label) || classes.contains("duplicate-section-btn") || classes.contains("row-move-btn")) {
+            return ["Updating…", "Updated"];
+        }
+        if (/savedReportsBtn/i.test(id) || /saved reports/i.test(label)) return ["Loading…", "Loaded"];
+        return ["Working…", "Done"];
+    };
+
+    const enhanceButton = button => {
+        if (!(button instanceof HTMLButtonElement) || button.dataset.feedbackReady === "true") return;
+        button.dataset.feedbackReady = "true";
+        button.classList.add("has-action-feedback");
+        const label = document.createElement("span");
+        label.className = "button-feedback-label";
+        while (button.firstChild) label.appendChild(button.firstChild);
+        button.appendChild(label);
+        button.dataset.feedbackIdle = label.textContent.trim() || button.getAttribute("aria-label") || "Action";
+    };
+
+    document.querySelectorAll("button").forEach(enhanceButton);
+
+    const buttonObserver = new MutationObserver(records => {
+        records.forEach(record => {
+            record.addedNodes.forEach(node => {
+                if (node.nodeType !== Node.ELEMENT_NODE) return;
+                if (node.matches?.("button")) enhanceButton(node);
+                node.querySelectorAll?.("button").forEach(enhanceButton);
+            });
+        });
+    });
+    buttonObserver.observe(document.body, { childList: true, subtree: true });
+
+    document.addEventListener("click", event => {
+        const button = event.target.closest("button");
+        if (!button || button.disabled || button.dataset.feedbackBusy === "true") return;
+        enhanceButton(button);
+
+        const label = button.querySelector(":scope > .button-feedback-label");
+        if (!label) return;
+
+        const [loadingText, successText] = buttonFeedbackCopy(button);
+        const idleText = button.dataset.feedbackIdle;
+        button.dataset.feedbackBusy = "true";
+        button.classList.remove("is-feedback-success");
+        button.classList.add("is-feedback-loading");
+        label.textContent = loadingText;
+
+        window.setTimeout(() => {
+            button.classList.remove("is-feedback-loading");
+            button.classList.add("is-feedback-success");
+            label.textContent = successText;
+            window.setTimeout(() => {
+                button.classList.remove("is-feedback-success");
+                label.textContent = idleText;
+                button.dataset.feedbackBusy = "false";
+            }, 1000);
+        }, 1200);
+    });
+
 });
