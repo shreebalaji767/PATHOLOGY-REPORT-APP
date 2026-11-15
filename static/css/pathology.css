@@ -3425,11 +3425,6 @@ button, .btn {
     outline: 2px solid #7eabc7;
     outline-offset: -2px;
 }
-#reportActionsMenu .split-menu-item:disabled { opacity: .55; cursor: wait; }
-#reportActionsMenu .split-menu-item.is-feedback-loading { background: #f3f6f8; }
-#reportActionsMenu .split-menu-item.is-feedback-success { background: #eaf7f1; color: #14633f; }
-#reportActionsMenu .split-menu-item.is-feedback-error { background: #fff0f0; color: #a52d2d; }
-#reportActionsMenu .split-menu-item.is-feedback-success::before {
     background: #e2f3e9;
     border-color: #cce8d7;
     color: #16734a;
