@@ -2062,10 +2062,7 @@ textarea {
     outline-offset: 2px;
 }
 
-.split-menu-item:disabled { opacity: .6; cursor: wait; }
-.split-menu-item.is-feedback-loading { color: #526b7a; }
-.split-menu-item.is-feedback-success { background: #e8f6ef; color: #14633f; }
-.split-menu-item.is-feedback-error { background: #fff0f0; color: #a52d2d; }
+
 
 @media (max-width: 750px) {
     .top-actions { justify-content: flex-start; }
@@ -2846,28 +2843,7 @@ textarea {
     background: #dce7ed;
 }
 
-.app-toast {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    z-index: 3000;
-    background: #1e3442;
-    color: white;
-    padding: 11px 15px;
-    border-radius: 9px;
-    box-shadow: 0 12px 35px rgba(0,0,0,.18);
-    font-size: 13px;
-    font-weight: 700;
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    transition: .18s ease;
-}
 
-.app-toast.show {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 @media (max-width: 750px) {
     .quick-template-select {
