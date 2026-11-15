@@ -1,7 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#173b4d"/>
-  <rect x="64" y="64" width="384" height="384" rx="76" fill="#ffffff"/>
-  <path d="M256 126v260M126 256h260" stroke="#173b4d" stroke-width="42" stroke-linecap="round"/>
-  <path d="M174 350h164" stroke="#4a8299" stroke-width="22" stroke-linecap="round"/>
-  <text x="256" y="226" text-anchor="middle" font-family="Arial,sans-serif" font-size="64" font-weight="800" fill="#173b4d">SBH</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">BLSSNVJ21 Pathology</title>
+  <desc id="desc">Retro monochrome hospital emblem with a medical cross and SBH initials.</desc>
+  <rect width="512" height="512" rx="104" fill="#303336"/>
+  <rect x="22" y="22" width="468" height="468" rx="88" fill="#e2e2df" stroke="#777a7d" stroke-width="8"/>
+  <rect x="48" y="48" width="416" height="416" rx="66" fill="#f7f7f4" stroke="#b8babc" stroke-width="5"/>
+  <path d="M150 142h72v78h78v72h-78v78h-72v-78h-78v-72h78z" fill="#383b3e"/>
+  <path d="M161 153h50v78h78v50h-78v78h-50v-78H83v-50h78z" fill="#55595d" opacity=".28"/>
+  <path d="M316 182h106v18H316zM316 212h106v10H316z" fill="#b8babc"/>
+  <text x="369" y="300" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="76" font-weight="800" letter-spacing="-5" fill="#303336">SBH</text>
+  <path d="M302 332h134" stroke="#85898c" stroke-width="5" stroke-linecap="round"/>
+  <text x="369" y="365" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" letter-spacing="3" fill="#55595d">PATHOLOGY</text>
+  <rect x="48" y="418" width="416" height="46" rx="0" fill="#dededb"/>
+  <path d="M48 418h416" stroke="#aeb0b2" stroke-width="3"/>
+  <text x="256" y="449" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" letter-spacing="4" fill="#44474a">BLSSNVJ21</text>
 </svg>
