@@ -2425,7 +2425,7 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
 
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-            navigator.serviceWorker.register("/sw.js", { scope: "/" })
+            navigator.serviceWorker.register(new URL("./sw.js", document.baseURI), { scope: new URL("./", document.baseURI).pathname })
                 .then(registration => {
                     registration.update();
 

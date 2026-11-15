@@ -2,20 +2,28 @@
   "name": "BLSSNVJ21 Pathology Report Creator",
   "short_name": "BLSSNVJ21",
   "description": "BLSSNVJ21 browser-based pathology report creation and printing application with offline PWA support and browser-only storage.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait",
   "background_color": "#f3f6f8",
   "theme_color": "#173b4d",
   "lang": "en-IN",
   "dir": "ltr",
-  "categories": ["medical", "productivity", "business"],
+  "categories": [
+    "medical",
+    "productivity",
+    "business"
+  ],
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/static/icons/icon.svg",
+      "src": "static/icons/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

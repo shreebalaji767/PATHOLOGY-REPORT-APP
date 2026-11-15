@@ -1,93 +1,46 @@
 # BLSSNVJ21 Pathology Report Creator
 
-A browser-based pathology report editor for creating, previewing, saving, and printing professional laboratory reports. The responsive interface supports offline use as a Progressive Web App (PWA).
+A free, static, browser-based pathology report editor for GitHub Pages. The original report editor, styles, templates, IndexedDB storage, print layout and PWA assets are retained; the Flask server has been removed.
 
-## ✨ Highlights
+## Open the application
 
-- **Live report preview** while editing report details and results.
-- **Quick templates** for common panels, including CBC, LFT, KFT, Lipid Profile, Thyroid Profile, and Urine Routine / Microscopy.
-- **A4-ready report printing** for clean, readable laboratory reports.
-- **Saved Reports** stored locally in the browser.
-- **Automatic local draft saving** to help preserve in-progress work.
-- **IndexedDB browser storage** — no server-side patient/report database is required.
-- **Installable PWA** with a web app manifest and service worker.
-- **Offline support** through cached application assets.
-- **Responsive layout** for desktop and mobile screens.
-- **Keyboard shortcuts**, application branding, favicon, and SEO/Open Graph metadata.
-- `robots.txt`, `sitemap.xml`, and security response headers.
+- Landing page: https://shreebalaji767.github.io/PATHOLOGY-REPORT-APP/
+- Report editor: https://shreebalaji767.github.io/PATHOLOGY-REPORT-APP/app.html
 
-## 🔐 Storage & Privacy
+Enable GitHub Pages in Settings → Pages → Deploy from a branch → main → /(root). The repository includes a .nojekyll file so GitHub Pages serves the static assets as-is.
 
-- Patient and report data are stored in the user's browser using local browser storage.
-- The app does not require a server-side patient/report database.
-- Clearing the browser's site data may delete locally saved reports and drafts.
-- Use an appropriate device lock and browser profile when handling confidential patient information.
+## Preserved application features
 
-## 📲 Progressive Web App
+- Live report preview and A4-ready printing
+- Patient, sample, collection and report details
+- Multiple report sections and investigations
+- Add, duplicate, reorder and remove report sections/tests
+- Quick templates: CBC, FPG, calcium, vitamin B12, vitamin D, LFT, KFT, lipid profile, thyroid profile and urine routine/microscopy
+- Result flags, values, units, reference ranges and per-test remarks
+- Interpretation/remarks and report formatting
+- Save draft, save report, saved reports and local IndexedDB storage
+- Keyboard shortcuts and responsive editor
+- Installable PWA, offline asset caching and update handling
 
-The application includes:
+## Data and privacy
 
-- Web App Manifest
-- Service Worker and offline asset cache
-- Install support on compatible browsers
-- Service-worker update handling
+Patient/report records remain in the browser's IndexedDB on the device and browser profile where they were created. GitHub Pages does not provide a server database or automatic synchronization between devices. Clearing browser site data can remove locally stored reports. Use an appropriate device lock and browser profile for confidential patient information.
 
-Offline availability can depend on whether the app has already been loaded and its required assets cached.
+## Technology
 
-## 🧰 Technology
+- HTML5, CSS3 and vanilla JavaScript
+- IndexedDB for local report storage
+- Service worker + web app manifest for PWA/offline support
+- GitHub Pages static hosting; no Flask, backend, database service, paid API, subscription or ads
 
-- **Python / Flask** — application server
-- **HTML5** — page structure
-- **CSS3** — responsive layout and print styles
-- **JavaScript** — report editor and interface behavior
-- **IndexedDB** — browser-side report storage
-- **Service Worker** — caching and offline support
-- **Web App Manifest** — installable PWA metadata
+## Run locally
 
-## 📁 Project Structure
+Serve the repository root with any local static HTTP server (service workers require localhost or HTTPS). For example, with Python installed:
 
-```text
-PATHOLOGY-REPORT-APP/
-├── app.py
-├── templates/
-│   └── index.html
-├── static/
-│   ├── css/
-│   │   └── pathology.css
-│   ├── js/
-│   │   └── pathology.js
-│   ├── icons/
-│   │   └── icon.svg
-│   ├── manifest.webmanifest
-│   └── sw.js
-└── README.md
-```
+    python -m http.server 8000
 
-## 🚀 Run Locally
+Then open http://localhost:8000/.
 
-1. Install Python, if it is not already installed.
-2. Install Flask:
+## Clinical use notice
 
-   ```bash
-   pip install flask
-   ```
-
-3. Start the application from the repository directory:
-
-   ```bash
-   python app.py
-   ```
-
-4. Open the local URL printed by Flask in your browser.
-
-## 🩺 Clinical Use Notice
-
-This tool supports report preparation, preview, and printing. It does **not** replace laboratory quality-control procedures, result verification, clinical judgment, or review by an authorized healthcare professional. Verify patient details, units, reference intervals, and all results before issuing a report.
-
-## 📄 License
-
-No license is specified in this repository. Unless a license is added, reuse and redistribution are not automatically granted.
-
----
-
-**BLSSNVJ21 Pathology Report Creator**
+This tool supports report preparation, preview and printing. It does not replace laboratory quality-control procedures, result verification, clinical judgment or review by an authorized healthcare professional. Verify patient details, units, reference intervals and every result before issuing a report.

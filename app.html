@@ -37,16 +37,16 @@
     <meta property="og:description" content="Create, preview and print professional pathology reports with browser-only storage and offline PWA support.">
     <meta property="og:site_name" content="BLSSNVJ21">
     <meta property="og:locale" content="en_IN">
-    <meta property="og:image" content="{{ url_for('static', filename='icons/icon.svg', _external=True) }}">
+    <meta property="og:image" content="https://shreebalaji767.github.io/PATHOLOGY-REPORT-APP/static/icons/icon.svg">
     <meta property="og:image:alt" content="BLSSNVJ21 Pathology Report Creator logo">
 
     <!-- X / Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="BLSSNVJ21 Pathology Report Creator">
     <meta name="twitter:description" content="Browser-based pathology report creation and printing application by BLSSNVJ21.">
-    <meta name="twitter:image" content="{{ url_for('static', filename='icons/icon.svg', _external=True) }}">
+    <meta name="twitter:image" content="https://shreebalaji767.github.io/PATHOLOGY-REPORT-APP/static/icons/icon.svg">
 
-    <link rel="canonical" href="{{ request.url_root }}">
+    <link rel="canonical" href="./">
 
     <!-- Search engine / structured data -->
     <meta name="category" content="Medical Laboratory Software">
@@ -84,15 +84,15 @@
     }
     </script>
 
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='icons/icon.svg') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
+    <link rel="manifest" href="static/manifest.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="static/icons/icon.svg">
+    <link rel="apple-touch-icon" href="static/icons/icon.svg">
 
     <title>BLSSNVJ21 Pathology Report Creator | Pathology Laboratory Software</title>
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/pathology.css') }}"
+        href="static/css/pathology.css"
     >
 
 </head>
@@ -113,13 +113,13 @@
         <div class="brand-area">
 
             <a
-                href="/"
+                href="./"
                 class="brand-logo"
                 aria-label="Refresh Pathology Report Creator"
                 title="Refresh page"
             >
                 <img
-                    src="{{ url_for('static', filename='icons/icon.svg') }}"
+                    src="static/icons/icon.svg"
                     alt="Hospital Logo"
                 >
             </a>
@@ -1120,7 +1120,7 @@
 </div>
 
 <script
-    src="{{ url_for('static', filename='js/pathology.js') }}"
+    src="static/js/pathology.js"
 ></script>
 
 
