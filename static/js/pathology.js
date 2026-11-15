@@ -164,9 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
         draftSaveTimer = setTimeout(() => saveDraft(false), 700);
     }
 
-    function updateStorageStatus(message) {
-        const status = document.getElementById("storageStatus");
-        if (status) status.textContent = "LocalStorage only • " + message;
+    function updateStorageStatus() {
+        // Storage status messages are intentionally disabled; app actions remain unchanged.
     }
 
     async function saveReportToBrowser() {
@@ -1981,20 +1980,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function showToast(message) {
-        let toast = document.getElementById("appToast");
-        if (!toast) {
-            toast = document.createElement("div");
-            toast.id = "appToast";
-            toast.className = "app-toast";
-            document.body.appendChild(toast);
-        }
-        toast.textContent = message;
-        toast.classList.add("show");
-        clearTimeout(window.__pathologyToastTimer);
-        window.__pathologyToastTimer = setTimeout(() => {
-            toast.classList.remove("show");
-        }, 1800);
+    function showToast() {
+        // Transient action and status notifications are intentionally disabled.
     }
 
 
