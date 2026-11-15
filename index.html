@@ -22,6 +22,34 @@
     .cta{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:30px 34px;border-radius:22px;background:#e6f5f3;border:1px solid #cce9e4}.cta h2{font-size:24px;margin:0 0 4px}.cta p{margin:0;color:#4d6b72}.footer{padding:30px 0 38px;color:#70828e;font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
     @media(max-width:760px){.hero{grid-template-columns:1fr;gap:32px}.visual{width:min(82%,310px)}.features{grid-template-columns:1fr}.trust{justify-content:flex-start}.cta{align-items:flex-start;flex-direction:column}.nav{padding:16px 0}.nav-link{display:none}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+
+    /* Complete retro grey/white landing-page palette */
+    :root{color-scheme:light;--navy:#34373a;--teal:#666a6e;--ink:#292c30;--muted:#707479;--line:#d1d3d5;--paper:#fff;--wash:#eeeeed}
+    body{background:#eeeeed;color:#292c30}
+    .nav-link{color:#42464a}
+    .btn{background:linear-gradient(#fff,#dededc);color:#292c30;border:1px solid #bfc1c3;box-shadow:0 2px 4px #00000012;border-radius:8px}
+    .btn:hover{background:linear-gradient(#f0f0ee,#d3d4d2);color:#111;box-shadow:0 4px 9px #00000018}
+    .btn.secondary,.hero .secondary{background:#fff;color:#303336;border-color:#bfc1c3;box-shadow:none}
+    .hero{background:linear-gradient(135deg,#55595d 0%,#3b3e42 58%,#292c30 100%);color:#fff}
+    .hero p{color:#e1e1df}
+    .eyebrow{color:#f4f4f2;background:#ffffff12;border-color:#ffffff35}
+    .eyebrow i{background:#d5d6d4}
+    .report{color:#292c30}
+    .report-mark{background:#e5e5e3;color:#34373a}
+    .report-head{border-color:#dededc}
+    .report-head small,.report-foot{color:#707479}
+    .mini-line{background:#e5e5e3}
+    .mini-table{border-color:#d1d3d5}
+    .mini-row{border-color:#e1e1df}
+    .mini-row:first-child{background:#e5e5e3}
+    .trust{color:#505459}
+    .check{background:#e3e3e1;color:#34373a}
+    .feature{background:#fff;border-color:#d1d3d5}
+    .feature-icon{background:#e7e7e5;color:#34373a}
+    .cta{background:#e7e7e5;border-color:#c9cbcd}
+    .cta p{color:#55595d}
+    .footer{color:#707479}
+    @media(prefers-reduced-motion:reduce){.btn{transition:none}}
   </style>
 </head>
 <body>
