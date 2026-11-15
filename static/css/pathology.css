@@ -3011,3 +3011,158 @@ textarea {
 
 
 
+
+
+/* =========================================================
+   BUTTON SYSTEM — DISTINCT, CLEAN, ACCESSIBLE
+========================================================= */
+:root {
+    --button-ink: #233747;
+    --button-border: #d8e2e9;
+    --button-shadow: 0 2px 5px rgba(27, 52, 70, .08);
+}
+button, .btn {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: .01em;
+    line-height: 1.15;
+    box-shadow: var(--button-shadow);
+    transition: background .16s ease, border-color .16s ease, color .16s ease,
+                box-shadow .16s ease, transform .16s ease;
+}
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 13px rgba(27, 52, 70, .13);
+}
+.btn:active { transform: translateY(0); box-shadow: none; }
+.btn:focus-visible, button:focus-visible {
+    outline: 3px solid rgba(39, 126, 190, .3);
+    outline-offset: 2px;
+}
+.btn:disabled, button:disabled {
+    opacity: .48;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #286b9a, #1d567f);
+    border-color: #1d567f;
+}
+.btn-secondary {
+    color: #fff;
+    background: rgba(255,255,255,.14);
+    border-color: rgba(255,255,255,.28);
+}
+.btn-success {
+    color: #fff;
+    background: linear-gradient(135deg, #16836d, #116c5a);
+    border-color: #116c5a;
+}
+.btn-light {
+    color: #334e60;
+    background: #f4f7f9;
+    border-color: #dce5eb;
+}
+.btn-danger-outline {
+    color: #a33d43;
+    background: #fff8f8;
+    border-color: #e8c4c6;
+}
+.btn-large { min-height: 43px; padding: 11px 19px; border-radius: 10px; font-size: 13px; }
+
+/* Main actions each have a clear visual role. */
+#newReportBtn { color: #fff; background: #526675; border-color: #526675; }
+#previewBtn, #generateBtn, #closePreviewBtn2 { color: #fff; background: #286b9a; border-color: #1f5c87; }
+#saveDraftBtn { color: #435a69; background: #f3f6f8; border-color: #d6e0e6; }
+#saveReportBtn { color: #fff; background: #187c70; border-color: #12695f; }
+#savedReportsBtn { color: #514b83; background: #f1effb; border-color: #d9d4f1; }
+#printBtn, #printBtnBottom, #modalPrintBtn { color: #fff; background: #16836d; border-color: #116c5a; }
+#installAppBtn { color: #235f83; background: #eaf4fa; border-color: #c8dfed; }
+#addSectionBtn, #loadSelectedTemplatesBtn { color: #245d82; background: #edf6fb; border-color: #c9e0ee; }
+#clearSectionsBtn { color: #5c6972; background: #f5f7f8; border-color: #dce3e7; }
+#resetBtn, #clearSavedReportsBtn { color: #a33d43; background: #fff5f5; border-color: #e8c4c6; }
+#exportDataBtn { color: #176c62; background: #eaf7f3; border-color: #c5e6dc; }
+#importDataBtn { color: #285f91; background: #edf4fc; border-color: #ccdef1; }
+#closeSavedReportsBtn, #closePreviewBtn { color: #526675; }
+
+/* Compact controls generated for individual report sections and test rows. */
+.remove-section-btn, .remove-investigation-btn {
+    border: 1px solid #f0d2d3;
+    background: #fff6f6;
+    color: #a33d43;
+    border-radius: 8px;
+    transition: background .15s ease, border-color .15s ease, transform .15s ease;
+}
+.remove-section-btn:hover, .remove-investigation-btn:hover { background: #ffe9ea; border-color: #e5b9bb; }
+.duplicate-section-btn {
+    border: 1px solid #d7e4ed;
+    background: #f1f7fb;
+    color: #2d668b;
+    border-radius: 8px;
+}
+.duplicate-section-btn:hover { background: #e2f0f8; }
+.row-move-btn {
+    width: 29px;
+    height: 29px;
+    border: 1px solid #dce5eb;
+    border-radius: 8px;
+    background: #f6f8fa;
+    color: #526675;
+}
+.row-move-btn:hover { background: #eaf1f5; border-color: #c5d5df; }
+.section-result-toolbar .btn { min-height: 31px; padding: 7px 10px; border-radius: 7px; }
+
+/* Backup controls are grouped as a tidy toolbar. */
+.saved-reports-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 9px;
+    padding: 13px 18px;
+    background: #fbfcfd;
+    border-bottom: 1px solid var(--border);
+}
+.saved-report-actions { gap: 8px; }
+.saved-report-actions .btn { min-width: 68px; }
+.top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.modal-close {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e7ec;
+    border-radius: 9px;
+    background: #f7f9fa;
+    color: #526675;
+    cursor: pointer;
+}
+.modal-close:hover { background: #edf2f5; color: #243b4a; }
+
+@media (max-width: 650px) {
+    .saved-reports-toolbar { justify-content: stretch; padding: 12px; }
+    .saved-reports-toolbar .btn { flex: 1 1 calc(50% - 8px); min-width: 0; }
+    .saved-reports-toolbar #clearSavedReportsBtn { flex-basis: 100%; }
+    .top-actions { justify-content: flex-start; gap: 7px; }
+    .top-actions .btn { min-height: 35px; padding: 8px 11px; }
+    .saved-report-actions { display: flex; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .btn, button, .remove-section-btn, .remove-investigation-btn,
+    .duplicate-section-btn, .row-move-btn { transition: none !important; }
+}
