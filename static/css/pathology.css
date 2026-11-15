@@ -3588,3 +3588,151 @@ button, .btn {
   .btn, button, .remove-section-btn, .remove-investigation-btn,
   .duplicate-section-btn, .row-move-btn { transition: none !important; }
 }
+
+
+/* MODERN CONTROLS WITH A RESTRAINED RETRO COLOR PALETTE */
+:root {
+  --retro-ink: #302b25;
+  --retro-paper: #f4e8c9;
+  --retro-cream: #fff8e9;
+  --retro-red: #b85a4d;
+  --retro-red-dark: #914238;
+  --retro-blue: #557895;
+  --retro-blue-dark: #3d5e78;
+  --retro-green: #64836b;
+  --retro-green-dark: #4b6952;
+  --retro-gold: #bd8c3d;
+  --retro-gold-dark: #946b2e;
+  --retro-purple: #796b8d;
+  --retro-purple-dark: #5f526f;
+  --retro-line: #d8cdb8;
+}
+
+/* Modern shape and depth; retro colors do the visual work. */
+.btn, .row-move-btn, .modal-close, .remove-section-btn,
+.remove-investigation-btn, .duplicate-section-btn {
+  min-height: 38px;
+  border-width: 1px;
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .08);
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: background-color .16s ease, border-color .16s ease,
+              color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+.btn:hover, .row-move-btn:hover, .modal-close:hover,
+.remove-section-btn:hover, .remove-investigation-btn:hover,
+.duplicate-section-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(48, 43, 37, .13);
+}
+.btn:active, .row-move-btn:active, .modal-close:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .08);
+}
+.btn-primary, #previewBtn, #generateBtn, #closePreviewBtn2 {
+  color: #fffaf0;
+  background: var(--retro-blue);
+  border-color: var(--retro-blue-dark);
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .10);
+}
+.btn-primary:hover, #previewBtn:hover, #generateBtn:hover, #closePreviewBtn2:hover {
+  background: #496b87;
+}
+.btn-success, #saveReportBtn, #printBtn, #printBtnBottom, #modalPrintBtn,
+#exportDataBtn {
+  color: #fffaf0;
+  background: var(--retro-green);
+  border-color: var(--retro-green-dark);
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .10);
+}
+.btn-success:hover, #saveReportBtn:hover, #printBtn:hover,
+#printBtnBottom:hover, #modalPrintBtn:hover, #exportDataBtn:hover {
+  background: #58775f;
+}
+.btn-light, #saveDraftBtn, #clearSectionsBtn, #closeSavedReportsBtn,
+#closePreviewBtn, #exportDataBtn {
+  border-color: #cdbd9d;
+}
+.btn-light, #saveDraftBtn, #clearSectionsBtn, #closeSavedReportsBtn, #closePreviewBtn {
+  color: var(--retro-ink);
+  background: var(--retro-paper);
+}
+.btn-danger-outline, #resetBtn, #clearSavedReportsBtn,
+.remove-section-btn, .remove-investigation-btn, #newReportBtn {
+  color: #fffaf0;
+  background: var(--retro-red);
+  border-color: var(--retro-red-dark);
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .10);
+}
+.btn-danger-outline:hover, #resetBtn:hover, #clearSavedReportsBtn:hover,
+.remove-section-btn:hover, .remove-investigation-btn:hover, #newReportBtn:hover {
+  color: #fffaf0;
+  background: #a64d42;
+  border-color: var(--retro-red-dark);
+}
+#savedReportsBtn, .duplicate-section-btn {
+  color: #fffaf0;
+  background: var(--retro-purple);
+  border-color: var(--retro-purple-dark);
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .10);
+}
+#savedReportsBtn:hover, .duplicate-section-btn:hover {
+  color: #fffaf0;
+  background: #6d5f80;
+}
+#installAppBtn, #addSectionBtn, #loadSelectedTemplatesBtn, #importDataBtn {
+  color: #fffaf0;
+  background: var(--retro-gold);
+  border-color: var(--retro-gold-dark);
+  box-shadow: 0 1px 2px rgba(48, 43, 37, .10);
+}
+#installAppBtn:hover, #addSectionBtn:hover, #loadSelectedTemplatesBtn:hover, #importDataBtn:hover {
+  background: #aa7a31;
+}
+.row-move-btn, .modal-close {
+  color: var(--retro-ink);
+  background: #f6efdf;
+  border-color: #cdbd9d;
+}
+#reportActionsMenu .split-menu-item,
+#reportActionsMenu #previewBtn, #reportActionsMenu #saveDraftBtn,
+#reportActionsMenu #saveReportBtn, #reportActionsMenu #savedReportsBtn,
+#reportActionsMenu #installAppBtn, #reportActionsMenu #printBtn {
+  min-height: 42px;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none;
+  font-weight: 600;
+}
+#reportActionsMenu #previewBtn, #reportActionsMenu #saveDraftBtn,
+#reportActionsMenu #saveReportBtn, #reportActionsMenu #savedReportsBtn,
+#reportActionsMenu #installAppBtn, #reportActionsMenu #printBtn {
+  color: var(--retro-ink);
+  background: transparent;
+}
+#reportActionsMenu .split-menu-item:hover,
+#reportActionsMenu #previewBtn:hover, #reportActionsMenu #saveDraftBtn:hover,
+#reportActionsMenu #saveReportBtn:hover, #reportActionsMenu #savedReportsBtn:hover,
+#reportActionsMenu #installAppBtn:hover, #reportActionsMenu #printBtn:hover {
+  color: var(--retro-ink);
+  background: #f4e8c9;
+}
+.btn:focus-visible, button:focus-visible {
+  outline: 3px solid #bd8c3d;
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .btn, .row-move-btn, .modal-close {
+    min-height: 38px;
+    padding: 8px 11px;
+    border-radius: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, button, .row-move-btn, .modal-close,
+  .remove-section-btn, .remove-investigation-btn, .duplicate-section-btn {
+    transition: none !important;
+  }
+}
