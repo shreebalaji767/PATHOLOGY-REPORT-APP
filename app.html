@@ -139,63 +139,26 @@
         </div>
 
 
-        <div class="top-actions"><button
-                type="button"
-                class="btn btn-secondary"
-                id="newReportBtn"
-            >
-                + New Report
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-primary"
-                id="previewBtn"
-            >
-                Preview
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-light"
-                id="saveDraftBtn"
-            >
-                Save Draft
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-light"
-                id="saveReportBtn"
-            >
-                Save Report
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-light"
-                id="savedReportsBtn"
-            >
-                Saved Reports
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-light"
-                id="installAppBtn"
-                hidden
-            >
-                Install App
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-success"
-                id="printBtn"
-            >
-                Print Report
-            </button>
-
+        <div class="top-actions">
+            <div class="split-button" id="reportActionsSplit">
+                <button type="button" class="btn btn-secondary split-button-main" id="newReportBtn"
+                    aria-haspopup="true" aria-expanded="false" aria-controls="reportActionsMenu">
+                    + New Report
+                </button>
+                <button type="button" class="btn btn-secondary split-button-toggle" id="reportActionsToggle"
+                    aria-label="Show report actions" aria-haspopup="true" aria-expanded="false"
+                    aria-controls="reportActionsMenu">
+                    <span aria-hidden="true">▾</span>
+                </button>
+                <div class="split-button-menu" id="reportActionsMenu" role="menu" hidden>
+                    <button type="button" class="split-menu-item" id="previewBtn" role="menuitem">Preview</button>
+                    <button type="button" class="split-menu-item" id="saveDraftBtn" role="menuitem">Save Draft</button>
+                    <button type="button" class="split-menu-item" id="saveReportBtn" role="menuitem">Save Report</button>
+                    <button type="button" class="split-menu-item" id="savedReportsBtn" role="menuitem">Saved Reports</button>
+                    <button type="button" class="split-menu-item" id="installAppBtn" role="menuitem" hidden>Install App</button>
+                    <button type="button" class="split-menu-item" id="printBtn" role="menuitem">Print Report</button>
+                </div>
+            </div>
         </div>
 
     </header>
