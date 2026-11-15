@@ -3243,78 +3243,6 @@ button, .btn {
 
 
 /* =========================================================
-   SAVE-TOGGLE STYLE FEEDBACK — ALL BUTTONS
-========================================================= */
-button.has-action-feedback {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-}
-.button-feedback-label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: inherit;
-    min-width: 0;
-}
-button.is-feedback-loading {
-    cursor: progress;
-    filter: saturate(.82);
-}
-button.is-feedback-loading .button-feedback-label::before {
-    content: "";
-    width: 12px;
-    height: 12px;
-    flex: 0 0 12px;
-    border: 2px solid currentColor;
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: button-feedback-spin .65s linear infinite;
-}
-button.is-feedback-success {
-    border-color: #16836d !important;
-    background: #e9f7f2 !important;
-    color: #116c5a !important;
-    box-shadow: 0 0 0 3px rgba(22, 131, 109, .10);
-}
-button.is-feedback-success .button-feedback-label::before {
-    content: "✓";
-    display: inline-grid;
-    place-items: center;
-    width: 15px;
-    height: 15px;
-    flex: 0 0 15px;
-    border-radius: 50%;
-    background: #16836d;
-    color: #fff;
-    font-size: 10px;
-    font-weight: 900;
-    line-height: 1;
-}
-button.is-feedback-loading,
-button.is-feedback-success {
-    transform: none;
-}
-@keyframes button-feedback-spin {
-    to { transform: rotate(360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-    button.is-feedback-loading .button-feedback-label::before {
-        animation: none;
-        border-right-color: currentColor;
-    }
-}
-
-
-button.is-feedback-error {
-    border-color: #c65b62 !important;
-    background: #fff1f1 !important;
-    color: #9d3038 !important;
-    box-shadow: 0 0 0 3px rgba(198, 91, 98, .10);
-}
-
-
-/* =========================================================
    DEVICE-WIDE RESPONSIVE LAYOUT
    Phones, compact phones, tablets, laptops and wide displays.
    Screen-only rules preserve A4 print output.
@@ -3342,7 +3270,7 @@ button.is-feedback-error {
   .saved-reports-modal { width:min(900px,100%); }
   .saved-reports-body { overflow-x:hidden; }
   .saved-report-item > div:first-child { min-width:0; overflow-wrap:anywhere; }
-  .app-toast { right:max(12px,env(safe-area-inset-right)); bottom:max(12px,env(safe-area-inset-bottom)); max-width:calc(100vw - 24px); overflow-wrap:anywhere; }
+
 }
 @media screen and (max-width:1100px) {
   .workspace { grid-template-columns:minmax(0,1fr); gap:14px; padding:clamp(10px,2vw,18px); }
@@ -3386,7 +3314,7 @@ button.is-feedback-error {
   .modal-header { min-height:54px; padding:8px 12px; }
   .modal-body { padding:10px; }
   .modal-footer { gap:8px; }
-  .app-toast { left:12px; right:12px; bottom:max(12px,env(safe-area-inset-bottom)); width:auto; text-align:center; }
+
 }
 @media screen and (max-width:380px) {
   .workspace { padding:7px; }
