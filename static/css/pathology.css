@@ -3166,3 +3166,67 @@ button, .btn {
     .btn, button, .remove-section-btn, .remove-investigation-btn,
     .duplicate-section-btn, .row-move-btn { transition: none !important; }
 }
+
+
+/* =========================================================
+   SAVE-TOGGLE STYLE FEEDBACK — ALL BUTTONS
+========================================================= */
+button.has-action-feedback {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+.button-feedback-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: inherit;
+    min-width: 0;
+}
+button.is-feedback-loading {
+    cursor: progress;
+    filter: saturate(.82);
+}
+button.is-feedback-loading .button-feedback-label::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: button-feedback-spin .65s linear infinite;
+}
+button.is-feedback-success {
+    border-color: #16836d !important;
+    background: #e9f7f2 !important;
+    color: #116c5a !important;
+    box-shadow: 0 0 0 3px rgba(22, 131, 109, .10);
+}
+button.is-feedback-success .button-feedback-label::before {
+    content: "✓";
+    display: inline-grid;
+    place-items: center;
+    width: 15px;
+    height: 15px;
+    flex: 0 0 15px;
+    border-radius: 50%;
+    background: #16836d;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1;
+}
+button.is-feedback-loading,
+button.is-feedback-success {
+    transform: none;
+}
+@keyframes button-feedback-spin {
+    to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    button.is-feedback-loading .button-feedback-label::before {
+        animation: none;
+        border-right-color: currentColor;
+    }
+}
