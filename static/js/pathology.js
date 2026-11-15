@@ -2188,6 +2188,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       SPLIT ACTION MENU
+    ====================================================== */
+
+    const reportActionsSplit = document.getElementById("reportActionsSplit");
+    const reportActionsToggle = document.getElementById("reportActionsToggle");
+    const reportActionsMenu = document.getElementById("reportActionsMenu");
+    const reportActionsMain = document.getElementById("newReportBtn");
+
+    function setReportActionsMenu(open) {
+        if (!reportActionsMenu || !reportActionsToggle || !reportActionsMain) return;
+        reportActionsMenu.hidden = !open;
+        reportActionsToggle.setAttribute("aria-expanded", String(open));
+        reportActionsMain.setAttribute("aria-expanded", String(open));
+        reportActionsToggle.setAttribute("aria-label", open ? "Hide report actions" : "Show report actions");
+    }
+
+    reportActionsToggle?.addEventListener("click", () => {
+        setReportActionsMenu(reportActionsMenu?.hidden !== false);
+    });
+
+    reportActionsMenu?.addEventListener("click", event => {
+        if (event.target.closest("button")) setReportActionsMenu(false);
+    });
+
+    document.addEventListener("click", event => {
+        if (reportActionsSplit && !reportActionsSplit.contains(event.target)) setReportActionsMenu(false);
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && reportActionsMenu && !reportActionsMenu.hidden) {
+            setReportActionsMenu(false);
+            reportActionsToggle?.focus();
+        }
+    });
+
+    /* =====================================================
        EVENT LISTENERS
     ====================================================== */
 
@@ -2320,7 +2356,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     newReportBtn.addEventListener(
         "click",
-        newReport
+        event => runTopbarButton(event.currentTarget, newReport, "Creating report…", "New report ready")
     );
 
 
