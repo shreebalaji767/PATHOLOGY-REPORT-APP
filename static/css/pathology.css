@@ -1982,6 +1982,104 @@ textarea {
 
 
 /* =========================================================
+   COMBINED REPORT ACTION SPLIT BUTTON
+========================================================= */
+
+.top-actions { align-items: center; }
+
+.split-button {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    isolation: isolate;
+}
+
+.split-button-main {
+    min-height: 42px;
+    padding-inline: 17px;
+    border-radius: 8px 0 0 8px;
+}
+
+.split-button-toggle {
+    min-width: 40px;
+    min-height: 42px;
+    padding: 8px 11px;
+    border-left: 1px solid rgba(255,255,255,.24);
+    border-radius: 0 8px 8px 0;
+}
+
+.split-button-toggle span {
+    display: inline-block;
+    transition: transform .18s ease;
+}
+
+.split-button-toggle[aria-expanded="true"] span { transform: rotate(180deg); }
+
+.split-button-menu {
+    position: absolute;
+    z-index: 300;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(240px, calc(100vw - 28px));
+    padding: 6px;
+    border: 1px solid #d7e0e8;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(12, 35, 52, .22);
+}
+
+.split-button-menu[hidden],
+.split-menu-item[hidden] { display: none !important; }
+
+.split-menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: #173b4d;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition: background .16s ease, color .16s ease;
+}
+
+.split-menu-item:hover,
+.split-menu-item:focus-visible {
+    outline: none;
+    background: #edf4f8;
+    color: #0c527a;
+}
+
+.split-menu-item:focus-visible,
+.split-button button:focus-visible {
+    outline: 3px solid rgba(121, 190, 235, .8);
+    outline-offset: 2px;
+}
+
+.split-menu-item:disabled { opacity: .6; cursor: wait; }
+.split-menu-item.is-feedback-loading { color: #526b7a; }
+.split-menu-item.is-feedback-success { background: #e8f6ef; color: #14633f; }
+.split-menu-item.is-feedback-error { background: #fff0f0; color: #a52d2d; }
+
+@media (max-width: 750px) {
+    .top-actions { justify-content: flex-start; }
+    .split-button { max-width: 100%; }
+    .split-button-main { padding-inline: 14px; }
+    .split-button-menu { right: auto; left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .split-button-toggle span, .split-menu-item { transition: none; }
+}
+
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
