@@ -1,6 +1,6 @@
 # BLSSNVJ21 Pathology Report Creator
 
-A free, static, browser-based pathology report editor for GitHub Pages. The original report editor, styles, templates, IndexedDB storage, print layout and PWA assets are retained; the Flask server has been removed.
+A free, static, browser-based pathology report editor for GitHub Pages. The original report editor, styles, templates, localStorage storage and JSON import/export, print layout and PWA assets are retained; the Flask server has been removed.
 
 ## Open the application
 
@@ -18,18 +18,19 @@ Enable GitHub Pages in Settings → Pages → Deploy from a branch → main → 
 - Quick templates: CBC, FPG, calcium, vitamin B12, vitamin D, LFT, KFT, lipid profile, thyroid profile and urine routine/microscopy
 - Result flags, values, units, reference ranges and per-test remarks
 - Interpretation/remarks and report formatting
-- Save draft, save report, saved reports and local IndexedDB storage
+- Save draft, save report, saved reports and localStorage storage
 - Keyboard shortcuts and responsive editor
 - Installable PWA, offline asset caching and update handling
 
 ## Data and privacy
 
-Patient/report records remain in the browser's IndexedDB on the device and browser profile where they were created. GitHub Pages does not provide a server database or automatic synchronization between devices. Clearing browser site data can remove locally stored reports. Use an appropriate device lock and browser profile for confidential patient information.
+Patient/report records remain in the browser's localStorage on the device and browser profile where they were created. GitHub Pages does not provide a server database or automatic synchronization between devices. Clearing browser site data can remove locally stored reports. Export a JSON backup regularly and store it securely. Importing a backup adds its reports to existing records. Use an appropriate device lock and browser profile for confidential patient information.
 
 ## Technology
 
 - HTML5, CSS3 and vanilla JavaScript
-- IndexedDB for local report storage
+- localStorage for local report and draft storage
+- JSON backup import/export
 - Service worker + web app manifest for PWA/offline support
 - GitHub Pages static hosting; no Flask, backend, database service, paid API, subscription or ads
 
