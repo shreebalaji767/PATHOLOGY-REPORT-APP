@@ -3230,3 +3230,11 @@ button.is-feedback-success {
         border-right-color: currentColor;
     }
 }
+
+
+button.is-feedback-error {
+    border-color: #c65b62 !important;
+    background: #fff1f1 !important;
+    color: #9d3038 !important;
+    box-shadow: 0 0 0 3px rgba(198, 91, 98, .10);
+}
