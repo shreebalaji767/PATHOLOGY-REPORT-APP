@@ -2227,60 +2227,9 @@ document.addEventListener("DOMContentLoaded", () => {
        EVENT LISTENERS
     ====================================================== */
 
-    const runTopbarButton = async (button, action, loadingText, successText) => {
-        if (!button || button.dataset.feedbackBusy === "true") return;
-        enhanceButton(button);
-        const label = button.querySelector(":scope > .button-feedback-label");
-        if (!label) return;
-
-        const idleText = button.dataset.feedbackIdle;
-        const wasDisabled = button.disabled;
-        button.dataset.feedbackBusy = "true";
-        button.disabled = true;
-        button.setAttribute("aria-busy", "true");
-        button.classList.remove("is-feedback-success", "is-feedback-error");
-        button.classList.add("is-feedback-loading");
-        label.textContent = loadingText;
-
-        let succeeded = false;
-        try {
-            succeeded = (await action()) !== false;
-        } catch (error) {
-            console.error("Top-bar action failed:", error);
-            succeeded = false;
-        }
-
-        button.classList.remove("is-feedback-loading");
-        button.removeAttribute("aria-busy");
-        button.disabled = wasDisabled;
-
-        if (succeeded) {
-            button.classList.add("is-feedback-success");
-            label.textContent = successText;
-            window.setTimeout(() => {
-                button.classList.remove("is-feedback-success");
-                label.textContent = idleText;
-                button.dataset.feedbackBusy = "false";
-            }, 1100);
-        } else {
-            button.classList.add("is-feedback-error");
-            label.textContent = idleText;
-            button.dataset.feedbackBusy = "false";
-            window.setTimeout(() => button.classList.remove("is-feedback-error"), 650);
-        }
-    };
-
-    document.getElementById("saveDraftBtn")?.addEventListener("click", event =>
-        runTopbarButton(event.currentTarget, () => saveDraft(true), "Saving draft…", "Draft saved")
-    );
-
-    document.getElementById("saveReportBtn")?.addEventListener("click", event =>
-        runTopbarButton(event.currentTarget, saveReportToBrowser, "Saving report…", "Report saved")
-    );
-
-    document.getElementById("savedReportsBtn")?.addEventListener("click", event =>
-        runTopbarButton(event.currentTarget, openSavedReports, "Loading reports…", "Reports loaded")
-    );
+    document.getElementById("saveDraftBtn")?.addEventListener("click", () => saveDraft(false));
+    document.getElementById("saveReportBtn")?.addEventListener("click", saveReportToBrowser);
+    document.getElementById("savedReportsBtn")?.addEventListener("click", openSavedReports);
 
     document.getElementById("closeSavedReportsBtn")?.addEventListener(
         "click",
@@ -2356,7 +2305,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     newReportBtn.addEventListener(
         "click",
-        event => runTopbarButton(event.currentTarget, newReport, "Creating report…", "New report ready")
+        newReport
     );
 
 
@@ -2503,27 +2452,14 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
         event.preventDefault();
         deferredInstallPrompt = event;
         if (installAppBtn) {
-            installAppBtn.hidden = false;
-        }
-    });
-
-    if (installAppBtn) {
-        installAppBtn.addEventListener("click", event => runTopbarButton(
-            event.currentTarget,
-            async () => {
-                if (!deferredInstallPrompt) return false;
-                const installPrompt = deferredInstallPrompt;
-                installPrompt.prompt();
-                const choice = await installPrompt.userChoice;
-                deferredInstallPrompt = null;
-                installAppBtn.hidden = true;
-                if (choice?.outcome === "accepted") return true;
-                showToast("App installation was dismissed");
-                return false;
-            },
-            "Opening installer…",
-            "Install accepted"
-        ));
+        installAppBtn.addEventListener("click", async () => {
+            if (!deferredInstallPrompt) return;
+            const installPrompt = deferredInstallPrompt;
+            installPrompt.prompt();
+            await installPrompt.userChoice;
+            deferredInstallPrompt = null;
+            installAppBtn.hidden = true;
+        });
     }
 
     window.addEventListener("appinstalled", () => {
@@ -2630,90 +2566,5 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
        UNIVERSAL BUTTON FEEDBACK (HTML5 + CSS3 + VANILLA JS)
        Applies to static and dynamically-created buttons.
     ====================================================== */
-    const buttonFeedbackCopy = button => {
-        const id = button.id || "";
-        const classes = button.classList;
-        const label = (button.textContent || button.getAttribute("aria-label") || "Action").trim();
-
-        if (/saveDraftBtn|saveReportBtn/i.test(id) || /save draft|save report/i.test(label)) {
-            return ["Saving…", "Saved"];
-        }
-        if (/exportDataBtn/i.test(id) || /export/i.test(label)) return ["Preparing…", "Exported"];
-        if (/importDataBtn/i.test(id) || /import/i.test(label)) return ["Opening…", "Ready"];
-        if (/print|modalPrint/i.test(id) || /print/i.test(label)) return ["Preparing…", "Ready to print"];
-        if (/preview/i.test(id) || /preview/i.test(label)) return ["Preparing…", "Preview ready"];
-        if (/remove|delete|clear|reset/i.test(id + " " + label) || classes.contains("remove-section-btn") || classes.contains("remove-investigation-btn")) {
-            return ["Working…", "Done"];
-        }
-        if (/newReportBtn/i.test(id) || /new report/i.test(label)) return ["Preparing…", "Ready"];
-        if (/install/i.test(id) || /install/i.test(label)) return ["Opening…", "Ready"];
-        if (/section|template|duplicate|move|generate/i.test(id + " " + label) || classes.contains("duplicate-section-btn") || classes.contains("row-move-btn")) {
-            return ["Updating…", "Updated"];
-        }
-        if (/savedReportsBtn/i.test(id) || /saved reports/i.test(label)) return ["Loading…", "Loaded"];
-        return ["Working…", "Done"];
-    };
-
-    const enhanceButton = button => {
-        if (!(button instanceof HTMLButtonElement) || button.dataset.feedbackReady === "true") return;
-        button.dataset.feedbackReady = "true";
-        button.classList.add("has-action-feedback");
-        const label = document.createElement("span");
-        label.className = "button-feedback-label";
-        while (button.firstChild) label.appendChild(button.firstChild);
-        button.appendChild(label);
-        button.dataset.feedbackIdle = label.textContent.trim() || button.getAttribute("aria-label") || "Action";
-    };
-
-    document.querySelectorAll("button").forEach(enhanceButton);
-
-    const buttonObserver = new MutationObserver(records => {
-        records.forEach(record => {
-            record.addedNodes.forEach(node => {
-                if (node.nodeType !== Node.ELEMENT_NODE) return;
-                if (node.matches?.("button")) enhanceButton(node);
-                node.querySelectorAll?.("button").forEach(enhanceButton);
-            });
-        });
-    });
-    buttonObserver.observe(document.body, { childList: true, subtree: true });
-
-    document.addEventListener("click", event => {
-        const button = event.target.closest("button");
-        if (!button || button.disabled || button.dataset.feedbackBusy === "true") return;
-        if (["newReportBtn", "previewBtn", "saveDraftBtn", "saveReportBtn", "savedReportsBtn", "installAppBtn", "printBtn"].includes(button.id)) return;
-        enhanceButton(button);
-
-        const label = button.querySelector(":scope > .button-feedback-label");
-        if (!label) return;
-
-        const [loadingText, successText] = buttonFeedbackCopy(button);
-        const idleText = button.dataset.feedbackIdle;
-        button.dataset.feedbackBusy = "true";
-        button.classList.remove("is-feedback-success");
-        button.classList.add("is-feedback-loading");
-        label.textContent = loadingText;
-
-        window.setTimeout(() => {
-            button.classList.remove("is-feedback-loading");
-            button.classList.add("is-feedback-success");
-            label.textContent = successText;
-            window.setTimeout(() => {
-                button.classList.remove("is-feedback-success");
-                label.textContent = idleText;
-                button.dataset.feedbackBusy = "false";
-            }, 1000);
-        }, 1200);
-    });
-
-    document.getElementById("newReportBtn")?.addEventListener("click", event =>
-        runTopbarButton(event.currentTarget, newReport, "Starting new report…", "New report ready")
-    );
-    document.getElementById("previewBtn")?.addEventListener("click", event =>
-        runTopbarButton(event.currentTarget, openPreview, "Preparing preview…", "Preview ready")
-    );
-    document.getElementById("printBtn")?.addEventListener("click", event =>
-        runTopbarButton(event.currentTarget, printReport, "Opening print dialog…", "Print dialog opened")
-    );
 
 });
