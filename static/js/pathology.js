@@ -2447,7 +2447,8 @@ This is a clinical interpretation chart for vitamin D (25OH–VitD) levels, deta
             deferredInstallPrompt = null;
             installAppBtn.hidden = true;
         });
-    }
+        }
+    });
 
     window.addEventListener("appinstalled", () => {
         deferredInstallPrompt = null;
