@@ -3445,3 +3445,146 @@ button, .btn {
 @media (prefers-reduced-motion: reduce) {
     #reportActionsMenu .split-menu-item { transition: none; }
 }
+
+/* =========================================================
+   RETRO BUTTON PALETTE — WARM CLASSIC ARCADE / PRINT
+   Flat vintage colors, crisp borders and offset shadows.
+========================================================= */
+:root {
+  --retro-ink: #302b25;
+  --retro-paper: #f4e8c9;
+  --retro-cream: #fff6df;
+  --retro-red: #b94b3e;
+  --retro-red-dark: #87372f;
+  --retro-blue: #496b8a;
+  --retro-blue-dark: #304b65;
+  --retro-green: #527b61;
+  --retro-green-dark: #36563f;
+  --retro-gold: #c18a2e;
+  --retro-gold-dark: #89601f;
+  --retro-purple: #75658a;
+  --retro-line: #4a4034;
+}
+.btn {
+  color: var(--retro-ink);
+  border: 2px solid var(--retro-line);
+  border-radius: 5px;
+  box-shadow: 3px 3px 0 var(--retro-line);
+  font-weight: 800;
+  letter-spacing: .015em;
+  text-transform: none;
+  transition: background-color .12s ease, color .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover {
+  transform: translate(-1px,-1px);
+  box-shadow: 4px 4px 0 var(--retro-line);
+}
+.btn:active {
+  transform: translate(2px,2px);
+  box-shadow: 1px 1px 0 var(--retro-line);
+}
+.btn-primary, #previewBtn, #generateBtn, #closePreviewBtn2 {
+  color: #fff8e8;
+  background: var(--retro-blue);
+  border-color: var(--retro-blue-dark);
+  box-shadow: 3px 3px 0 var(--retro-blue-dark);
+}
+.btn-success, #saveReportBtn, #printBtn, #printBtnBottom, #modalPrintBtn {
+  color: #fff8e8;
+  background: var(--retro-green);
+  border-color: var(--retro-green-dark);
+  box-shadow: 3px 3px 0 var(--retro-green-dark);
+}
+.btn-light, #saveDraftBtn, #clearSectionsBtn, #closeSavedReportsBtn, #closePreviewBtn {
+  color: var(--retro-ink);
+  background: var(--retro-paper);
+  border-color: #8e7958;
+  box-shadow: 3px 3px 0 #8e7958;
+}
+.btn-danger-outline, #resetBtn, #clearSavedReportsBtn,
+.remove-section-btn, .remove-investigation-btn {
+  color: #fff8e8;
+  background: var(--retro-red);
+  border-color: var(--retro-red-dark);
+  box-shadow: 3px 3px 0 var(--retro-red-dark);
+}
+#newReportBtn {
+  color: #fff8e8;
+  background: var(--retro-red);
+  border: 2px solid var(--retro-red-dark);
+  box-shadow: 3px 3px 0 var(--retro-red-dark);
+}
+#savedReportsBtn, .duplicate-section-btn {
+  color: #fff8e8;
+  background: var(--retro-purple);
+  border: 2px solid #514563;
+  box-shadow: 3px 3px 0 #514563;
+}
+#installAppBtn, #addSectionBtn, #loadSelectedTemplatesBtn, #importDataBtn {
+  color: #fff8e8;
+  background: var(--retro-gold);
+  border: 2px solid var(--retro-gold-dark);
+  box-shadow: 3px 3px 0 var(--retro-gold-dark);
+}
+#exportDataBtn {
+  color: #fff8e8;
+  background: var(--retro-green);
+  border: 2px solid var(--retro-green-dark);
+  box-shadow: 3px 3px 0 var(--retro-green-dark);
+}
+.row-move-btn, .modal-close {
+  color: var(--retro-ink);
+  background: var(--retro-paper);
+  border: 2px solid #8e7958;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0 #8e7958;
+}
+.remove-section-btn:hover, .remove-investigation-btn:hover {
+  color: #fff8e8;
+  background: #a33f34;
+  border-color: var(--retro-red-dark);
+}
+.duplicate-section-btn:hover { color:#fff8e8; background:#655678; }
+.row-move-btn:hover, .modal-close:hover { background:#ead9b1; color:var(--retro-ink); }
+.btn:focus-visible, button:focus-visible {
+  outline: 3px solid #d49a35;
+  outline-offset: 3px;
+}
+#reportActionsMenu .split-menu-item,
+#reportActionsMenu #previewBtn,
+#reportActionsMenu #saveDraftBtn,
+#reportActionsMenu #saveReportBtn,
+#reportActionsMenu #savedReportsBtn,
+#reportActionsMenu #installAppBtn,
+#reportActionsMenu #printBtn {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  box-shadow: none;
+  font-weight: 750;
+}
+#reportActionsMenu #previewBtn,
+#reportActionsMenu #saveDraftBtn,
+#reportActionsMenu #saveReportBtn,
+#reportActionsMenu #savedReportsBtn,
+#reportActionsMenu #installAppBtn,
+#reportActionsMenu #printBtn {
+  color: var(--retro-ink);
+  background: transparent;
+}
+#reportActionsMenu .split-menu-item:hover,
+#reportActionsMenu #previewBtn:hover,
+#reportActionsMenu #saveDraftBtn:hover,
+#reportActionsMenu #saveReportBtn:hover,
+#reportActionsMenu #savedReportsBtn:hover,
+#reportActionsMenu #installAppBtn:hover,
+#reportActionsMenu #printBtn:hover {
+  color: var(--retro-ink);
+  background: var(--retro-paper);
+}
+@media (max-width: 600px) {
+  .btn { min-height: 38px; padding: 8px 10px; border-radius: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, button, .remove-section-btn, .remove-investigation-btn,
+  .duplicate-section-btn, .row-move-btn { transition: none !important; }
+}
