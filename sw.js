@@ -1,11 +1,11 @@
 /* GitHub Pages-compatible service worker; URLs resolve from this repository's Pages scope. */
 const APP_ROOT = new URL("./", self.registration.scope);
-const CACHE_NAME = "blssnvj21-pathology-v26";
+const CACHE_NAME = "blssnvj21-pathology-v27";
 const APP_SHELL = [
   APP_ROOT.href,
   new URL("app.html", APP_ROOT).href,
   new URL("static/css/pathology.css", APP_ROOT).href,
-  new URL("static/js/pathology.js", APP_ROOT).href,
+  new URL("static/js/pathology-v27.js", APP_ROOT).href,
   new URL("static/manifest.webmanifest", APP_ROOT).href,
   new URL("static/icons/icon.svg", APP_ROOT).href
 ];
