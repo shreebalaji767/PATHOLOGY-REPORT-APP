@@ -6,7 +6,7 @@
 
    FEATURES:
    - No database
-   - Browser-only storage using IndexedDB
+   - Browser-only storage using localStorage
    - No server-side patient/report storage
    - Multiple report sections
    - Optional main heading
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       BROWSER STORAGE ONLY — INDEXEDDB
+       BROWSER STORAGE ONLY — LOCALSTORAGE
        No patient/report data is sent to the server.
     ====================================================== */
 
@@ -2079,10 +2079,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         generateReport();
-        openStorageDB().then(db => {
-            const tx = db.transaction("drafts", "readwrite");
-            tx.objectStore("drafts").delete(DRAFT_KEY);
-        }).catch(() => {});
+        const store = readStore();
+        store.draft = null;
+        writeStore(store);
         updateStorageStatus("New report");
     }
 
