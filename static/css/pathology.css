@@ -4102,3 +4102,99 @@ hr, .divider { border-color:#d1d3d5; }
   *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; }
 }
 
+
+
+/* MODERN COMPONENT SYSTEM — MONOCHROME RETRO GREY / WHITE PALETTE */
+@media screen {
+  :root {
+    --primary:#34383c;
+    --primary-dark:#25292d;
+    --secondary:#777d82;
+    --success:#4b5055;
+    --danger:#4b5055;
+    --text:#25292d;
+    --muted:#747a80;
+    --border:#d9dcde;
+    --soft:#f2f3f3;
+    --white:#fff;
+    --shadow:0 8px 26px rgba(25,29,32,.055);
+  }
+  html { scroll-behavior:smooth; }
+  body { font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif; letter-spacing:0; }
+  .topbar {
+    min-height:68px; height:auto; padding:10px clamp(14px,3vw,32px);
+    background:#34383c; border-bottom:1px solid #25292d;
+    box-shadow:0 2px 10px rgba(20,22,24,.12);
+  }
+  .brand-area { gap:12px; }
+  .brand-logo { width:42px; height:42px; border-radius:10px; border:1px solid #c8cbcd!important; }
+  .brand-title { font-size:14px; font-weight:750; letter-spacing:.35px; }
+  .brand-subtitle { font-size:11px; letter-spacing:.15px; }
+  .panel-card,.modal-content,.saved-reports-panel,.report-section-editor {
+    border:1px solid #dfe1e2; border-radius:12px; box-shadow:0 5px 20px rgba(25,29,32,.045);
+  }
+  .panel-heading,.section-toolbar,.section-editor-header,.modal-header,.modal-footer {
+    background:#f3f4f4; border-color:#e1e3e4;
+  }
+  .panel-heading { padding:15px 18px; }
+  .panel-heading h2 { font-size:15px; font-weight:700; letter-spacing:.1px; }
+  input,select,textarea,.form-control {
+    min-height:40px; border:1px solid #d1d5d7; border-radius:8px;
+    background:#fff; color:#25292d; box-shadow:0 1px 2px rgba(20,24,27,.025);
+    transition:border-color .16s ease,box-shadow .16s ease;
+  }
+  textarea { min-height:unset; }
+  input:hover,select:hover,textarea:hover,.form-control:hover { border-color:#aeb3b7; }
+  input:focus,select:focus,textarea:focus,.form-control:focus {
+    outline:none; border-color:#737a80; box-shadow:0 0 0 3px rgba(80,86,91,.12);
+  }
+  .btn,button.btn,.row-move-btn,.modal-close,.remove-section-btn,
+  .remove-investigation-btn,.duplicate-section-btn,#reportActionsToggle {
+    min-height:38px; padding:8px 13px; border-radius:8px!important;
+    color:#303438!important; background:#f7f8f8!important;
+    border:1px solid #cbd0d2!important; box-shadow:0 1px 2px rgba(20,24,27,.045)!important;
+    font:600 13px/1.25 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    letter-spacing:.05px; text-shadow:none!important; transform:none;
+    transition:background .15s ease,border-color .15s ease,box-shadow .15s ease;
+  }
+  .btn:hover,button.btn:hover,.row-move-btn:hover,.modal-close:hover,
+  .remove-section-btn:hover,.remove-investigation-btn:hover,
+  .duplicate-section-btn:hover,#reportActionsToggle:hover {
+    color:#171a1d!important; background:#e9ebec!important;
+    border-color:#aeb4b8!important; box-shadow:0 2px 5px rgba(20,24,27,.08)!important;
+    transform:none;
+  }
+  .btn:active,button.btn:active,.row-move-btn:active,.modal-close:active {
+    background:#dfe2e3!important; box-shadow:inset 0 1px 2px rgba(0,0,0,.08)!important;
+  }
+  .btn:focus-visible,button:focus-visible { outline:2px solid #62696e; outline-offset:2px; }
+  #reportActionsMenu {
+    border:1px solid #d7dadc!important; border-radius:10px!important;
+    box-shadow:0 12px 30px rgba(20,24,27,.14)!important; overflow:hidden;
+  }
+  #reportActionsMenu button,#reportActionsMenu .split-menu-item {
+    min-height:40px; border-radius:0!important; box-shadow:none!important;
+  }
+  .report-section-editor,.section-heading-fields,.patient-details-box,
+  .specimen-box,.method-box,.remarks-box,.saved-report-item,.saved-report-card,
+  .storage-status,.status-pill {
+    border-radius:9px; border-color:#e0e2e3;
+  }
+  .report-table { border-collapse:separate; border-spacing:0; }
+  .report-table th { font-weight:700; letter-spacing:.1px; }
+  .report-table th:first-child { border-top-left-radius:7px; }
+  .report-table th:last-child { border-top-right-radius:7px; }
+  .modal-content { overflow:hidden; }
+  .modal-header,.modal-footer { padding:14px 18px; }
+  a { text-underline-offset:3px; }
+}
+@media screen and (max-width:768px) {
+  .topbar { padding:10px 14px; }
+  .panel-card,.modal-content,.saved-reports-panel { border-radius:10px; }
+}
+@media screen and (max-width:600px) {
+  .btn,button.btn,.row-move-btn,.modal-close { min-height:36px; padding:7px 10px; font-size:12px; }
+}
+@media print {
+  .topbar,.btn,button,.modal { box-shadow:none!important; }
+}
