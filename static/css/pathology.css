@@ -3438,3 +3438,115 @@ button.is-feedback-error {
   .remove-section-btn,.duplicate-section-btn { min-width:38px; }
 }
 @media screen and (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+
+/* =========================================================
+   CLEAN REPORT ACTION DROPDOWN
+   Scoped overrides keep every menu action visually consistent.
+========================================================= */
+#reportActionsMenu {
+    width: min(276px, calc(100vw - 24px));
+    padding: 7px;
+    border: 1px solid #dce5eb;
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 18px 42px rgba(22, 43, 58, .18), 0 3px 9px rgba(22, 43, 58, .06);
+    transform-origin: top right;
+}
+#reportActionsMenu .split-menu-item,
+#reportActionsMenu #previewBtn,
+#reportActionsMenu #saveDraftBtn,
+#reportActionsMenu #saveReportBtn,
+#reportActionsMenu #savedReportsBtn,
+#reportActionsMenu #installAppBtn,
+#reportActionsMenu #printBtn {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+    min-height: 44px;
+    margin: 1px 0;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #304757;
+    box-shadow: none;
+    font: 600 13px/1.25 Arial, Helvetica, sans-serif;
+    text-align: left;
+    letter-spacing: 0;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease;
+}
+#reportActionsMenu .split-menu-item::before {
+    display: inline-grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    flex: 0 0 27px;
+    border: 1px solid #e5ebef;
+    border-radius: 8px;
+    background: #f6f8fa;
+    color: #526b7a;
+    font-size: 14px;
+    font-weight: 700;
+}
+#reportActionsMenu #previewBtn::before { content: "◉"; }
+#reportActionsMenu #saveDraftBtn::before { content: "▣"; }
+#reportActionsMenu #saveReportBtn::before { content: "✓"; color: #16734a; background: #eef8f3; border-color: #d8eee3; }
+#reportActionsMenu #savedReportsBtn::before { content: "▤"; }
+#reportActionsMenu #installAppBtn::before { content: "↓"; }
+#reportActionsMenu #printBtn::before { content: "▧"; }
+#reportActionsMenu #savedReportsBtn {
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px solid #edf1f4;
+    border-radius: 0 0 8px 8px;
+}
+#reportActionsMenu .split-menu-item:hover,
+#reportActionsMenu .split-menu-item:focus-visible,
+#reportActionsMenu #previewBtn:hover,
+#reportActionsMenu #saveDraftBtn:hover,
+#reportActionsMenu #saveReportBtn:hover,
+#reportActionsMenu #savedReportsBtn:hover,
+#reportActionsMenu #installAppBtn:hover,
+#reportActionsMenu #printBtn:hover {
+    outline: none;
+    background: #f0f5f8;
+    color: #123f63;
+    box-shadow: none;
+    transform: none;
+}
+#reportActionsMenu .split-menu-item:focus-visible {
+    outline: 2px solid #7eabc7;
+    outline-offset: -2px;
+}
+#reportActionsMenu .split-menu-item:disabled { opacity: .55; cursor: wait; }
+#reportActionsMenu .split-menu-item.is-feedback-loading { background: #f3f6f8; }
+#reportActionsMenu .split-menu-item.is-feedback-success { background: #eaf7f1; color: #14633f; }
+#reportActionsMenu .split-menu-item.is-feedback-error { background: #fff0f0; color: #a52d2d; }
+#reportActionsMenu .split-menu-item.is-feedback-success::before {
+    background: #e2f3e9;
+    border-color: #cce8d7;
+    color: #16734a;
+}
+#reportActionsToggle {
+    min-width: 42px;
+    border-color: rgba(255,255,255,.24);
+}
+#reportActionsToggle:hover,
+#reportActionsToggle:focus-visible { filter: brightness(1.08); }
+@media screen and (max-width: 600px) {
+    #reportActionsMenu {
+        left: 0;
+        right: auto;
+        width: min(290px, calc(100vw - 24px));
+        max-height: min(70vh, 420px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    #reportActionsMenu .split-menu-item { min-height: 46px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #reportActionsMenu .split-menu-item { transition: none; }
+}
